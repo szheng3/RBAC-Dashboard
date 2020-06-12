@@ -37,13 +37,14 @@ const Model: LoginModelType = {
       try {
         const response = yield call(fakeAccountLogin, payload);
 
+        console.log(response.accessToken)
         yield put({
           type: 'changeLoginStatus',
           payload: response,
         });
 
         // Login successfully
-        if (response.success) {
+        if (response) {
           const urlParams = new URL(window.location.href);
           const params = getPageQuery();
           let { redirect } = params as { redirect: string };
@@ -60,7 +61,7 @@ const Model: LoginModelType = {
             }
           }
 
-          localStorage.setItem('token', response.data.token);
+          localStorage.setItem('token', response.accessToken);
 
           reloadAuthorized();
 

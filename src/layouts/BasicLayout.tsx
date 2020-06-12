@@ -135,8 +135,31 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
     }
 
     async function fetchMenus() {
-      const { data } = await request('/admin/menus/fetch');
-      setMenuData(data || []);
+      const { data } = await request('/oauth2/menus/fetch');
+      console.log(data)
+      const response =[{
+        path:"/admin",
+        name:"admin",
+        children:[
+          {
+            path:"/admin/menus",
+            name:"menus"
+          },
+          {
+            path:"/admin/permissions",
+            name:"permissions"
+          },
+          {
+            path:"/admin/roles",
+            name:"roles"
+          },
+          {
+            path:"/admin/users",
+            name:"users"
+          }
+        ]
+      }]
+      setMenuData(response || []);
     }
 
     fetchMenus();

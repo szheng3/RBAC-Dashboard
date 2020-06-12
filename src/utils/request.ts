@@ -71,7 +71,7 @@ const errorHandler = (error: { response: Response }): Response | void => {
 };
 
 export const DOMAIN =
-  process.env.NODE_ENV === 'production' ? `http://staging.qiuzhi99.com` : `http://localhost:6060`;
+  process.env.NODE_ENV === 'production' ? `http://staging.qiuzhi99.com` : `https://splice.passgpa.com`;
 
 /**
  * 配置request请求时的默认参数
@@ -79,7 +79,7 @@ export const DOMAIN =
 const request = extend({
   errorHandler, // 默认错误处理
   credentials: 'same-origin', // 默认请求是否带上cookie
-  prefix: `${DOMAIN}/api`,
+  prefix: `${DOMAIN}`,
   headers: {
     Authorization: `Bearer ${localStorage.getItem('token')}`,
   },

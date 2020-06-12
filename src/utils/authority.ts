@@ -11,7 +11,7 @@ export function getAuthority(str?: string): string | string[] {
   if (authorityString !== null) {
     try {
       console.log(jwtDecode(authorityString));
-      authority = (jwtDecode(authorityString) as any).currentAuthority;
+      authority = (jwtDecode(authorityString) as any).aud;
     } catch (e) {
       authority = authorityString;
     }
@@ -25,7 +25,7 @@ export function getAuthority(str?: string): string | string[] {
     return ['admin'];
   }
 
-  return authority;
+  return ['admin'];
 }
 
 export function setAuthority(authority: string | string[]): void {

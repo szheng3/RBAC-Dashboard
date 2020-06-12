@@ -50,7 +50,7 @@ const Login: React.FC<LoginProps> = props => {
           {success === false && !submitting && <LoginMessage content="账户或密码错误" />}
 
           <UserName
-            name="username"
+            name="email"
             placeholder="用户名: admin or user"
             rules={[
               {

@@ -1,14 +1,14 @@
 import request from '@/utils/request';
 
 export interface LoginParamsType {
-  username: string;
+  email: string;
   password: string;
   mobile: string;
   captcha: string;
 }
 
 export async function fakeAccountLogin(params: LoginParamsType) {
-  return request('/admin/users/login', {
+  return request('/oauth2/login', {
     method: 'POST',
     data: params,
   });

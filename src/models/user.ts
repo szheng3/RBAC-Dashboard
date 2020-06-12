@@ -48,7 +48,10 @@ const UserModel: UserModelType = {
 
       yield put({
         type: 'saveCurrentUser',
-        payload: response.data,
+        payload: {
+          userid:response.id,
+          avatar:""
+        },
       });
     },
   },
