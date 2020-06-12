@@ -140,10 +140,11 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       const response =[{
         path:"/admin",
         name:"admin",
+        icon:  <GithubOutlined />,
         children:[
           {
             path:"/admin/menus",
-            name:"menus"
+            name:"menus",
           },
           {
             path:"/admin/permissions",

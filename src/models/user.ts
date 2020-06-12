@@ -50,7 +50,8 @@ const UserModel: UserModelType = {
         type: 'saveCurrentUser',
         payload: {
           userid:response.id,
-          avatar:""
+          avatar:"https://i.ya-webdesign.com/images/funny-png-avatar-2.png",
+          name:"gg"
         },
       });
     },
