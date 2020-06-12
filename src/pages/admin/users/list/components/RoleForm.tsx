@@ -43,8 +43,8 @@ const RoleForm: React.FC<UpdateFormProps> = props => {
       if (loading) {
         return;
       }
-      const { success, data } = await queryRoles();
-      if (success) {
+      const {  data } = await queryRoles();
+      if (data) {
         setRoles(data);
         setLoading(false);
       }
@@ -93,7 +93,7 @@ const RoleForm: React.FC<UpdateFormProps> = props => {
                 type="checkbox"
                 value={role._id}
               />
-              {role.nameCn}
+              {role.name}
             </Col>
           ))}
         </Row>

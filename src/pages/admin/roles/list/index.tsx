@@ -88,27 +88,29 @@ const TableList: React.FC<{}> = () => {
   const columns: ProColumns<TableListItem>[] = [
     {
       title: '标识符',
-      dataIndex: 'name',
+      dataIndex: '_id',
     },
     {
       title: '名称',
-      dataIndex: 'nameCn',
+      dataIndex: 'roles',
+      renderText: (roles:any) =>roles.name
     },
     {
       title: '权限列表',
       dataIndex: 'permissions',
       renderText: (permissions: PermissionData[]) =>
-        permissions.map(permission => permission.nameCn).join(', '),
+        permissions.map(permission => permission.name).join(', '),
     },
     {
       title: '创建时间',
-      dataIndex: 'createdAt',
-      renderText: (val: string) => moment(val).fromNow(),
+      dataIndex: 'roles',
+      renderText: (roles: any) => moment(roles.createDate).fromNow(),
     },
     {
       title: '更新时间',
-      dataIndex: 'updatedAt',
+      dataIndex: 'roles',
       valueType: 'dateTime',
+      renderText: (roles: any) => roles.updateDate,
     },
     {
       title: '操作',
