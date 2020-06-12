@@ -15,20 +15,18 @@ export interface UserModelState {
   currentUser?: CurrentUser;
 }
 
-export interface UserModelType {
+export interface UserModelType<T> {
   namespace: 'user';
-  state: UserModelState;
+  state: T;
   effects: {
-    fetch: Effect;
-    fetchCurrent: Effect;
+    [key: string]: Effect;
   };
   reducers: {
-    saveCurrentUser: Reducer<UserModelState>;
-    changeNotifyCount: Reducer<UserModelState>;
+    [key: string]: Reducer<UserModelState>;
   };
 }
 
-const UserModel: UserModelType = {
+const UserModel: UserModelType<UserModelState> = {
   namespace: 'user',
 
   state: {
@@ -48,17 +46,14 @@ const UserModel: UserModelType = {
 
       yield put({
         type: 'saveCurrentUser',
-        payload: {
-          userid:response.id,
-          avatar:"https://i.ya-webdesign.com/images/funny-png-avatar-2.png",
-          name:"gg"
-        },
+        payload: response,
       });
     },
   },
 
   reducers: {
     saveCurrentUser(state, action) {
+
       return {
         ...state,
         currentUser: action.payload || {},
