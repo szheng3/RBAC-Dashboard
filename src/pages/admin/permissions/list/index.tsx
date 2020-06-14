@@ -62,20 +62,20 @@ const TableList: React.FC<{}> = () => {
   const columns: ProColumns<TableListItem>[] = [
     {
       title: '标识符',
-      dataIndex: 'name',
+      dataIndex: '_id',
     },
     {
       title: '名称',
-      dataIndex: 'nameCn',
+      dataIndex: 'name',
     },
     {
       title: '创建时间',
-      dataIndex: 'createdAt',
+      dataIndex: 'createDate',
       renderText: (val: string) => moment(val).fromNow(),
     },
     {
       title: '更新时间',
-      dataIndex: 'updatedAt',
+      dataIndex: 'updateDate',
       valueType: 'dateTime',
     },
     {
