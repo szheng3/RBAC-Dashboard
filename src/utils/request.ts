@@ -71,7 +71,7 @@ const errorHandler = (error: { response: Response }): Response | void => {
 };
 
 export const DOMAIN =
-  process.env.NODE_ENV === 'production' ? `http://staging.qiuzhi99.com` : `https://splice.passgpa.com`;
+  process.env.NODE_ENV === 'production' ? `https://splice.passgpa.com` : `https://splice.passgpa.com`;
 
 /**
  * 配置request请求时的默认参数
