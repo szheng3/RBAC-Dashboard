@@ -9,7 +9,6 @@ import RoleForm from './components/RoleForm';
 import { TableListItem, CreateParams, RoleFormParams } from './data.d';
 import { queryUsers, updateUser, addUser, setRoles } from './service';
 import moment from 'moment';
-import { TableListItem as RoleData } from '../../roles/list/data.d';
 import checkPermission from '@/utils/checkPermission';
 
 /**
@@ -88,17 +87,19 @@ const TableList: React.FC<{}> = () => {
   const columns: ProColumns<TableListItem>[] = [
     {
       title: '用户名',
-      dataIndex: 'name',
+      dataIndex: 'users',
+      renderText: (val: any) => val.name,
     },
     {
       title: 'email',
-      dataIndex: 'email',
+      dataIndex: 'users',
+      renderText: (val: any) => val.email,
     },
-    // {
-    //   title: '角色',
-    //   dataIndex: 'roles',
-    //   renderText: (roles: RoleData[]) => roles.map(role => role.nameCn).join(', '),
-    // },
+    {
+      title: '角色',
+      dataIndex: 'roles',
+      renderText: (roles: any[]) => roles.map(({roles}) => roles.name).join(', '),
+    },
     // {
     //   title: '是否是超级管理员',
     //   dataIndex: 'isAdmin',
@@ -106,13 +107,13 @@ const TableList: React.FC<{}> = () => {
     // },
     {
       title: '创建时间',
-      dataIndex: 'createDate',
-      renderText: (val: string) => moment(val).fromNow(),
+      dataIndex: 'users',
+      renderText: (val: any) => moment(val.createDate).fromNow(),
     },
     {
       title: '更新时间',
-      dataIndex: 'updateDate',
-      valueType: 'dateTime',
+      dataIndex: 'users',
+      renderText: (val: any) => moment(val.updateDate).fromNow(),
     },
     {
       title: '操作',
