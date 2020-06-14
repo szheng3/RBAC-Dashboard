@@ -88,26 +88,30 @@ const TableList: React.FC<{}> = () => {
   const columns: ProColumns<TableListItem>[] = [
     {
       title: '用户名',
-      dataIndex: 'username',
+      dataIndex: 'name',
     },
     {
-      title: '角色',
-      dataIndex: 'roles',
-      renderText: (roles: RoleData[]) => roles.map(role => role.nameCn).join(', '),
+      title: 'email',
+      dataIndex: 'email',
     },
-    {
-      title: '是否是超级管理员',
-      dataIndex: 'isAdmin',
-      renderText: (val: string) => (val ? '是' : '否'),
-    },
+    // {
+    //   title: '角色',
+    //   dataIndex: 'roles',
+    //   renderText: (roles: RoleData[]) => roles.map(role => role.nameCn).join(', '),
+    // },
+    // {
+    //   title: '是否是超级管理员',
+    //   dataIndex: 'isAdmin',
+    //   renderText: (val: string) => (val ? '是' : '否'),
+    // },
     {
       title: '创建时间',
-      dataIndex: 'createdAt',
+      dataIndex: 'createDate',
       renderText: (val: string) => moment(val).fromNow(),
     },
     {
       title: '更新时间',
-      dataIndex: 'updatedAt',
+      dataIndex: 'updateDate',
       valueType: 'dateTime',
     },
     {

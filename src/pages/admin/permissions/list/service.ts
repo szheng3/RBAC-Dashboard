@@ -3,7 +3,7 @@ import { TableListParams, CreateParams } from './data.d';
 import { FormValueType } from './components/UpdateForm';
 
 export async function queryPermissions(params?: TableListParams) {
-  return request('/oauth2/permissions/fetch', {
+  return request('/oauth2/permissions', {
     params,
   });
 }
