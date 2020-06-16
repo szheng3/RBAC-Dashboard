@@ -9,7 +9,7 @@ export async function queryPermissions(params?: TableListParams) {
 }
 
 export async function addPermission(params: CreateParams) {
-  return request('/admin/permissions', {
+  return request('/oauth2/permissions', {
     method: 'POST',
     data: {
       ...params,
@@ -18,8 +18,8 @@ export async function addPermission(params: CreateParams) {
 }
 
 export async function updatePermission(params: FormValueType) {
-  return request(`/admin/permissions/${params._id}`, {
-    method: 'PUT',
+  return request('/oauth2/permissions', {
+    method: 'POST',
     data: {
       ...params,
     },

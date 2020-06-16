@@ -51,14 +51,14 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
     return (
       <>
         <FormItem
-          name="name"
+          name="_id"
           label="标识符"
           rules={[{ required: true, message: '请输入英文名称！' }]}
         >
           <Input placeholder="请输入英文名称！" />
         </FormItem>
         <FormItem
-          name="nameCn"
+          name="name"
           label="名称"
           rules={[{ required: true, message: '请输入中文标识！' }]}
         >

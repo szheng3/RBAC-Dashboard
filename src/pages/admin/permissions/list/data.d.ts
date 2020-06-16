@@ -22,5 +22,5 @@ export interface TableListParams {
 
 export interface CreateParams {
   name: string;
-  nameCn: string;
+  idPermissions: string;
 }
