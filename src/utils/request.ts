@@ -5,6 +5,7 @@
 import { extend, RequestOptionsInit } from 'umi-request';
 import { notification } from 'antd';
 import router from 'umi/router';
+import { get } from '@/utils/StorageUtil';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -81,7 +82,7 @@ const request = extend({
   credentials: 'same-origin', // 默认请求是否带上cookie
   prefix: `${DOMAIN}`,
   headers: {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
+    Authorization: `Bearer ${get('sso')}`,
   },
 });
 
@@ -90,7 +91,7 @@ const myRequest = (url: string, options: RequestOptionsInit | undefined = {}) =>
     ...options,
     headers: {
       ...options!.headers,
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${get('sso')}`,
     },
   });
 };

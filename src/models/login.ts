@@ -7,6 +7,7 @@ import { fakeAccountLogin, getFakeCaptcha } from '@/services/login';
 import { getPageQuery } from '@/utils/utils';
 import { message } from 'antd';
 import { reloadAuthorized } from '@/utils/Authorized';
+import { remove, save } from '@/utils/StorageUtil';
 
 export interface StateType {
   success?: boolean | null | undefined;
@@ -33,11 +34,11 @@ const Model: LoginModelType = {
   },
 
   effects: {
-    *login({ payload }, { call, put }) {
+    * login({ payload }, { call, put }) {
       try {
         const response = yield call(fakeAccountLogin, payload);
 
-        console.log(response.accessToken)
+        console.log(response.accessToken);
         yield put({
           type: 'changeLoginStatus',
           payload: response,
@@ -61,7 +62,7 @@ const Model: LoginModelType = {
             }
           }
 
-          localStorage.setItem('token', response.accessToken);
+          save('sso', response.accessToken);
 
           reloadAuthorized();
 
@@ -77,7 +78,7 @@ const Model: LoginModelType = {
       }
     },
 
-    *getCaptcha({ payload }, { call }) {
+    * getCaptcha({ payload }, { call }) {
       yield call(getFakeCaptcha, payload);
     },
 
@@ -85,7 +86,7 @@ const Model: LoginModelType = {
       const { redirect } = getPageQuery();
       // Note: There may be security issues, please note
       if (window.location.pathname !== '/user/login' && !redirect) {
-        localStorage.removeItem('token');
+        remove('sso');
 
         router.replace({
           pathname: '/user/login',

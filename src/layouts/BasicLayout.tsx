@@ -22,6 +22,7 @@ import { ConnectState } from '@/models/connect';
 import { isAntDesignPro, getAuthorityFromRouter } from '@/utils/utils';
 import logo from '../assets/logo.svg';
 import request from '@/utils/request';
+import { createFromIconfontCN } from '@ant-design/icons';
 
 const noMatch = (
   <Result
@@ -35,6 +36,15 @@ const noMatch = (
     }
   />
 );
+
+const IconFont = createFromIconfontCN({
+  scriptUrl: [
+    '//at.alicdn.com/t/font_1788044_0dwu4guekcwr.js', // icon-javascript, icon-java, icon-shoppingcart (overrided)
+    '//at.alicdn.com/t/font_1788592_a5xf2bdic3u.js', // icon-shoppingcart, icon-python
+    '//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js', // icon-shoppingcart, icon-python
+  ],
+});
+
 export interface BasicLayoutProps extends ProLayoutProps {
   breadcrumbNameMap: {
     [path: string]: MenuDataItem;
@@ -135,31 +145,31 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
     }
 
     async function fetchMenus() {
-      const { data } = await request('/oauth2/menus/fetch');
-      console.log(data)
-      const response =[{
-        path:"/admin",
-        name:"admin",
-        icon:  <GithubOutlined />,
-        children:[
-          {
-            path:"/admin/menus",
-            name:"menus",
-          },
-          {
-            path:"/admin/permissions",
-            name:"permissions"
-          },
-          {
-            path:"/admin/roles",
-            name:"roles"
-          },
-          {
-            path:"/admin/users",
-            name:"users"
-          }
-        ]
-      }]
+      const response = await request('/oauth2/menus/fetch');
+      // console.log(data)
+      // const response =[{
+      //   path:"/admin",
+      //   name:"admin",
+      //   icon:  "icon-java",
+      //   children:[
+      //     {
+      //       path:"/admin/menus",
+      //       name:"menus",
+      //     },
+      //     {
+      //       path:"/admin/permissions",
+      //       name:"permissions"
+      //     },
+      //     {
+      //       path:"/admin/roles",
+      //       name:"roles"
+      //     },
+      //     {
+      //       path:"/admin/users",
+      //       name:"users"
+      //     }
+      //   ]
+      // }]
       setMenuData(response || []);
     }
 

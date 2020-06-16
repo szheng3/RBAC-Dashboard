@@ -1,17 +1,19 @@
 import { reloadAuthorized } from './Authorized';
 
 import jwtDecode from 'jwt-decode';
+import { get } from '@/utils/StorageUtil';
 
 // use localStorage to store the authority info, which might be sent from server in actual project.
-export function getAuthority(str?: string): string | string[] {
-  const authorityString = typeof str === 'undefined' ? localStorage.getItem('token') : str;
+export function getAuthority(str?: string): string[] {
+  const authorityString = typeof str === 'undefined' ? get('sso') : str;
 
   let authority;
 
   if (authorityString !== null) {
     try {
-      console.log(jwtDecode(authorityString));
-      authority = (jwtDecode(authorityString) as any).aud;
+      if (authorityString != null) {
+        authority = (jwtDecode(authorityString) as any).aud;
+      }
     } catch (e) {
       authority = authorityString;
     }
@@ -21,11 +23,12 @@ export function getAuthority(str?: string): string | string[] {
     return [authority];
   }
 
-  if (!authority && ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site') {
+  if (!authority && ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION ===
+    'site') {
     return ['admin'];
   }
 
-  return ['admin'];
+  return authority;
 }
 
 export function setAuthority(authority: string | string[]): void {

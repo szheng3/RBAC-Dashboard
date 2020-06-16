@@ -109,7 +109,7 @@ const TableList: React.FC<{}> = () => {
       valueType: 'option',
       render: (_, record) => (
         <>
-          {checkPermission('update permission') ? (
+          {checkPermission('MENU_WRITE') ? (
             <a
               onClick={() => {
                 handleUpdateModalVisible(true);

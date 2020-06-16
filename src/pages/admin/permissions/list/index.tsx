@@ -84,7 +84,7 @@ const TableList: React.FC<{}> = () => {
       valueType: 'option',
       render: (_, record) => (
         <>
-          {checkPermission('update permission') ? (
+          {checkPermission('PERMISSION_WRITE') ? (
             <a
               onClick={() => {
                 handleUpdateModalVisible(true);
