@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import { TableListParams, CreateParams, UpdateParams } from './data.d';
 
 export async function queryMenus(params?: TableListParams) {
-  return request('/admin/menus', {
+  return request('/oauth2/menus', {
     params,
   });
 }

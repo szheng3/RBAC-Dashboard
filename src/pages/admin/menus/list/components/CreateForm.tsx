@@ -33,7 +33,7 @@ const CreateForm: React.FC<CreateFormProps> = props => {
       }
     }
 
-    getSelectedMenus();
+    // getSelectedMenus();
   }, []);
 
   return (

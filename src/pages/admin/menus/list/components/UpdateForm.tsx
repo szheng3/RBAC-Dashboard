@@ -64,7 +64,7 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
       }
     }
 
-    getSelectedMenus();
+    // getSelectedMenus();
   }, []);
 
   const renderContent = () => {

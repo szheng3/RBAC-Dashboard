@@ -1,12 +1,12 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, message } from 'antd';
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
+import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
 import CreateForm from './components/CreateForm';
 import UpdateForm from './components/UpdateForm';
-import { TableListItem, CreateParams, UpdateParams } from './data.d';
-import { queryMenus, updateMenu, addMenu } from './service';
+import { CreateParams, TableListItem, UpdateParams } from './data.d';
+import { addMenu, queryMenus, updateMenu } from './service';
 import moment from 'moment';
 import checkPermission from '@/utils/checkPermission';
 
@@ -62,40 +62,46 @@ const handleUpdate = async (fields: UpdateParams) => {
 
 const TableList: React.FC<{}> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
-  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
+  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(
+    false);
   const [stepFormValues, setStepFormValues] = useState({});
   const actionRef = useRef<ActionType>();
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: '名称',
-      dataIndex: 'name',
+      title: 'Id',
+      dataIndex: 'idMenu',
     },
     {
       title: '中文描述',
-      dataIndex: 'nameCn',
+      dataIndex: 'menu',
+      renderText: (menu: any) => menu?.name,
+
     },
     {
       title: '路径',
-      dataIndex: 'path',
+      dataIndex: 'menu',
+      renderText: (menu: any) => menu?.path,
     },
     {
       title: '权限',
-      dataIndex: 'permission',
+      dataIndex: 'permissions',
+      renderText: (menu: any[]) => menu?.map(({ name }) => name).join(", "),
     },
     {
       title: '父类菜单',
-      dataIndex: 'parent',
-      renderText: (menu: TableListItem) => menu && menu.nameCn,
+      dataIndex: 'menu',
+      renderText: (menu: any) => menu?.idParent,
     },
     {
       title: '创建时间',
-      dataIndex: 'createdAt',
-      renderText: (val: string) => moment(val).fromNow(),
+      dataIndex: 'menu',
+      renderText: (val: any) => moment(val?.createDate).fromNow(),
     },
     {
       title: '更新时间',
-      dataIndex: 'updatedAt',
+      dataIndex: 'menu',
       valueType: 'dateTime',
+      renderText: (val: any) => val?.updateDate,
     },
     {
       title: '操作',
@@ -122,7 +128,7 @@ const TableList: React.FC<{}> = () => {
     if (checkPermission('create role')) {
       return (
         <Button type="primary" onClick={() => handleModalVisible(true)}>
-          <PlusOutlined /> 新建
+          <PlusOutlined/> 新建
         </Button>
       );
     } else {
