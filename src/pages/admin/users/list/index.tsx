@@ -113,7 +113,8 @@ const TableList: React.FC<{}> = () => {
     {
       title: '更新时间',
       dataIndex: 'users',
-      renderText: (val: any) => moment(val.updateDate).fromNow(),
+      valueType: 'dateTime',
+      renderText: (val: any) => val?.updateDate,
     },
     {
       title: '操作',
