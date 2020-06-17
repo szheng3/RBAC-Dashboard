@@ -55,7 +55,7 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
           label="标识符"
           rules={[{ required: true, message: '请输入英文名称！' }]}
         >
-          <Input placeholder="请输入英文名称！" />
+          <Input disabled placeholder="请输入英文名称！" />
         </FormItem>
         <FormItem
           name="name"
