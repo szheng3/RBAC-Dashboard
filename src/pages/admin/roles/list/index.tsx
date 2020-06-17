@@ -129,7 +129,7 @@ const TableList: React.FC<{}> = () => {
             </a>
           ) : null}
 
-          {checkPermission('allocate permissions for role') ? (
+          {checkPermission('ROLES_WRITE') ? (
             <>
               <Divider type="vertical" />
               <a
@@ -148,7 +148,7 @@ const TableList: React.FC<{}> = () => {
   ];
 
   const renderCreateButton = () => {
-    if (checkPermission('create role')) {
+    if (checkPermission('ROLES_WRITE')) {
       return (
         <Button type="primary" onClick={() => handleModalVisible(true)}>
           <PlusOutlined /> 新建
