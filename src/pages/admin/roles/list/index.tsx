@@ -19,10 +19,7 @@ import checkPermission from '@/utils/checkPermission';
 const handleAdd = async (fields: CreateParams) => {
   const hide = message.loading('正在添加');
   try {
-    await addRole({
-      name: fields.name,
-      nameCn: fields.nameCn,
-    });
+    await addRole(fields);
     hide();
     message.success('添加成功');
     return true;

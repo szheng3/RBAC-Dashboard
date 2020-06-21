@@ -9,7 +9,7 @@ export async function queryRoles(params?: TableListParams) {
 }
 
 export async function addRole(params: CreateParams) {
-  return request('/admin/roles', {
+  return request('/oauth2/roles', {
     method: 'POST',
     data: {
       ...params,
