@@ -28,7 +28,6 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
     idRoles: props?.values?.roles?.idRoles,
     name: props?.values?.roles?.name,
   });
-  console.log(props?.values)
 
   const [form] = Form.useForm();
 

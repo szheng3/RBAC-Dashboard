@@ -87,15 +87,13 @@ const PermissionForm: React.FC<UpdateFormProps> = props => {
   };
 
   const renderContent = () => {
-    const permissionsByGroup = groupBy(permissions, (permission: PermissionData) => {
-      return permission.name.split(' ').slice(-1)[0];
-    });
+    const permissionsByGroup = groupBy(permissions, (permission: PermissionData) => permission.name.split(' ').slice(-1)[0]);
 
     const NAME = { admin: '员工', role: '角色', permission: '权限' };
 
     if (loading) {
       return <Spin />;
-    } else {
+    }
       return (
         <>
           {keys(permissionsByGroup).map(name => (
@@ -122,7 +120,7 @@ const PermissionForm: React.FC<UpdateFormProps> = props => {
           </FormItem>
         </>
       );
-    }
+
   };
 
   const renderFooter = () => {
