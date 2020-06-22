@@ -37,13 +37,8 @@ const handleAdd = async (fields: CreateParams) => {
 const handleUpdate = async (fields: FormValueType) => {
   const hide = message.loading('正在修改');
   try {
-    await updateRole({
-      _id: fields._id,
-      name: fields.name,
-      nameCn: fields.nameCn,
-    });
+    await updateRole(fields);
     hide();
-
     message.success('修改成功');
     return true;
   } catch (error) {
@@ -115,7 +110,7 @@ const TableList: React.FC<{}> = () => {
       valueType: 'option',
       render: (_, record) => (
         <>
-          {checkPermission('update role') ? (
+          {checkPermission('ROLES_WRITE') ? (
             <a
               onClick={() => {
                 handleUpdateModalVisible(true);

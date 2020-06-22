@@ -18,8 +18,8 @@ export async function addRole(params: CreateParams) {
 }
 
 export async function updateRole(params: FormValueType) {
-  return request(`/admin/roles/${params._id}`, {
-    method: 'PUT',
+  return request(`/oauth2/roles`, {
+    method: 'POST',
     data: {
       ...params,
     },

@@ -25,10 +25,10 @@ const formLayout = {
 
 const UpdateForm: React.FC<UpdateFormProps> = props => {
   const [formVals, setFormVals] = useState<FormValueType>({
-    _id: props.values._id,
-    name: props.values.name,
-    nameCn: props.values.nameCn,
+    idRoles: props?.values?.roles?.idRoles,
+    name: props?.values?.roles?.name,
   });
+  console.log(props?.values)
 
   const [form] = Form.useForm();
 
@@ -47,32 +47,26 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
     handleUpdate(fieldsValue);
   };
 
-  const renderContent = () => {
-    return (
+  const renderContent = () => (
       <>
         <FormItem
-          name="name"
+          name="idRoles"
           label="标识符"
           rules={[{ required: true, message: '请输入英文名称！' }]}
         >
-          <Input placeholder="请输入英文名称！" />
+          <Input disabled placeholder="请输入英文名称！" />
         </FormItem>
         <FormItem
-          name="nameCn"
+          name="name"
           label="名称"
           rules={[{ required: true, message: '请输入中文标识！' }]}
         >
           <Input placeholder="请输入中文标识！" />
         </FormItem>
-        <FormItem name="_id" label={false}>
-          <Input type="hidden" />
-        </FormItem>
       </>
     );
-  };
 
-  const renderFooter = () => {
-    return (
+  const renderFooter = () => (
       <>
         <Button onClick={() => handleUpdateModalVisible(false, values)}>取消</Button>
         <Button type="primary" onClick={() => handleNext()}>
@@ -80,7 +74,6 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
         </Button>
       </>
     );
-  };
 
   return (
     <Modal
@@ -97,9 +90,8 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
         {...formLayout}
         form={form}
         initialValues={{
-          _id: formVals._id,
+          idRoles: formVals.idRoles,
           name: formVals.name,
-          nameCn: formVals.nameCn,
         }}
       >
         {renderContent()}
