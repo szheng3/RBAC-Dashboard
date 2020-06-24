@@ -48,11 +48,13 @@ const PermissionForm: React.FC<UpdateFormProps> = props => {
       if (loading) {
         return;
       }
-      const { success, data } = await queryPermissions();
-      if (success) {
+      const {data} = await queryPermissions();
+      if (data) {
         setPermissions(data);
         setLoading(false);
       }
+      setLoading(false);
+
     }
     getPermissions();
   }, []);
@@ -108,7 +110,7 @@ const PermissionForm: React.FC<UpdateFormProps> = props => {
                       type="checkbox"
                       value={permission._id}
                     />
-                    {permission.nameCn}
+                    {permission.name}
                   </Col>
                 ))}
               </Row>
