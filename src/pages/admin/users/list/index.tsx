@@ -122,7 +122,7 @@ const TableList: React.FC<{}> = () => {
       valueType: 'option',
       render: (_, record) => (
         <>
-          {checkPermission('update admin') ? (
+          {checkPermission('USERS_WRITE') ? (
             <a
               onClick={() => {
                 handleUpdateModalVisible(true);
@@ -133,7 +133,7 @@ const TableList: React.FC<{}> = () => {
             </a>
           ) : null}
 
-          {checkPermission('allocate roles for admin') ? (
+          {checkPermission('USERS_WRITE') ? (
             <>
               <Divider type="vertical" />
               <a
@@ -152,7 +152,7 @@ const TableList: React.FC<{}> = () => {
   ];
 
   const renderCreateButton = () => {
-    if (checkPermission('create admin')) {
+    if (checkPermission('USERS_WRITE')) {
       return (
         <Button type="primary" onClick={() => handleModalVisible(true)}>
           <PlusOutlined /> 新建
