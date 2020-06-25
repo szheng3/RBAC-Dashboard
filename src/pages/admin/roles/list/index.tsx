@@ -56,8 +56,8 @@ const handlePermissions = async (fields: PermissionFormParams) => {
   const hide = message.loading('正在修改');
   try {
     await setPermissions({
-      _id: fields._id,
-      permissionIds: fields.permissionIds,
+      rolesIdRoles: fields._id,
+      permissions: fields.permissionIds,
     });
     hide();
 

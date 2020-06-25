@@ -27,7 +27,7 @@ export async function updateRole(params: FormValueType) {
 }
 
 export async function setPermissions(params: PermissionFormParams) {
-  return request(`/admin/roles/${params._id}/permissions`, {
+  return request(`/oauth2/roleHasPermissions`, {
     method: 'POST',
     data: {
       ...params,
