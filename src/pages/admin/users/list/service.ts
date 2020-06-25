@@ -9,7 +9,7 @@ export async function queryUsers(params?: TableListParams) {
 }
 
 export async function addUser(params: CreateParams) {
-  return request('/admin/users', {
+  return request('/oauth2/users', {
     method: 'POST',
     data: {
       ...params,
@@ -18,8 +18,8 @@ export async function addUser(params: CreateParams) {
 }
 
 export async function updateUser(params: FormValueType) {
-  return request(`/admin/users/${params._id}`, {
-    method: 'PUT',
+  return request(`/oauth2/users`, {
+    method: 'post',
     data: {
       ...params,
     },

@@ -24,10 +24,11 @@ const formLayout = {
 };
 
 const UpdateForm: React.FC<UpdateFormProps> = props => {
+  console.log(props.values)
   const [formVals, setFormVals] = useState<FormValueType>({
-    _id: props.values._id,
-    username: props.values.username,
-    password: props.values.password,
+    id: props.values.id,
+    username: props.values.users.name,
+    email: props.values.users.email,
   });
 
   const [form] = Form.useForm();
@@ -58,13 +59,19 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
           <Input placeholder="请输入" />
         </FormItem>
         <FormItem
-          name="password"
-          label="密码"
-          rules={[{ required: true, message: '请输入密码！', min: 6 }]}
+          name="email"
+          label="Email"
+          rules={[{ required: true, message: '请输入Emails！', min: 5 }]}
         >
           <Input placeholder="请输入" />
         </FormItem>
-        <FormItem name="_id" label={false}>
+        <FormItem
+          name="password"
+          label="密码"
+        >
+          <Input placeholder="请输入" />
+        </FormItem>
+        <FormItem name="id" label={false}>
           <Input type="hidden" />
         </FormItem>
       </>
@@ -96,10 +103,7 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
       <Form
         {...formLayout}
         form={form}
-        initialValues={{
-          _id: formVals._id,
-          username: formVals.username,
-        }}
+        initialValues={formVals}
       >
         {renderContent()}
       </Form>

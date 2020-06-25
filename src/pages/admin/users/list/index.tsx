@@ -18,10 +18,7 @@ import checkPermission from '@/utils/checkPermission';
 const handleAdd = async (fields: CreateParams) => {
   const hide = message.loading('正在添加');
   try {
-    await addUser({
-      username: fields.username,
-      password: fields.password,
-    });
+    await addUser(fields);
     hide();
     message.success('添加成功');
     return true;
@@ -39,11 +36,7 @@ const handleAdd = async (fields: CreateParams) => {
 const handleUpdate = async (fields: FormValueType) => {
   const hide = message.loading('正在修改');
   try {
-    await updateUser({
-      _id: fields._id,
-      username: fields.username,
-      password: fields.password,
-    });
+    await updateUser(fields);
     hide();
 
     message.success('修改成功');

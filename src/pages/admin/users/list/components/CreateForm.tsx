@@ -40,6 +40,15 @@ const CreateForm: React.FC<CreateFormProps> = props => {
         <FormItem
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
+          label="Email"
+          name="email"
+          rules={[{ required: true, message: '请输入用户名！', min: 5 }]}
+        >
+          <Input placeholder="请输入" />
+        </FormItem>
+        <FormItem
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 15 }}
           label="密码"
           name="password"
           rules={[{ required: true, message: '请输入密码！', min: 6 }]}
