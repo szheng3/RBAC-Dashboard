@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Button, Input, Modal, Row, Col, Spin } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Form, Input, Modal, Row, Spin } from 'antd';
 
-import { TableListItem, PermissionFormParams } from '../data.d';
+import { PermissionFormParams, TableListItem } from '../data.d';
 import { queryPermissions } from '@/pages/admin/permissions/list/service';
 import { TableListItem as PermissionData } from '../../../permissions/list/data.d';
 import groupBy from 'lodash/groupBy';
@@ -15,6 +15,7 @@ export interface UpdateFormProps {
   updateModalVisible: boolean;
   values: Partial<TableListItem>;
 }
+
 const FormItem = Form.Item;
 
 export interface UpdateFormState {
@@ -44,11 +45,12 @@ const PermissionForm: React.FC<UpdateFormProps> = props => {
 
   useEffect(() => {
     setLoading(true);
+
     async function getPermissions() {
       if (loading) {
         return;
       }
-      const {data} = await queryPermissions();
+      const { data } = await queryPermissions();
       if (data) {
         setPermissions(data);
         setLoading(false);
@@ -56,6 +58,7 @@ const PermissionForm: React.FC<UpdateFormProps> = props => {
       setLoading(false);
 
     }
+
     getPermissions();
   }, []);
 
@@ -89,46 +92,47 @@ const PermissionForm: React.FC<UpdateFormProps> = props => {
   };
 
   const renderContent = () => {
-    const permissionsByGroup = groupBy(permissions, (permission: PermissionData) => permission.name.split(' ').slice(-1)[0]);
-
-    const NAME = { admin: '员工', role: '角色', permission: '权限' };
+    const permissionsByGroup = groupBy(permissions,
+      (permission: PermissionData) => permission.name.split(' ').slice()[0]);
 
     if (loading) {
-      return <Spin />;
+      return <Spin/>;
     }
-      return (
-        <>
-          {keys(permissionsByGroup).map(name => (
-            <div key={name}>
-              <Row>{NAME[name]}</Row>
-              <Row>
-                {permissionsByGroup[name].map(permission => (
-                  <Col key={permission._id} span={8}>
-                    <input
-                      defaultChecked={!!defaultPermissions.find(p => p._id === permission._id)}
-                      onChange={handleCheckboxChange}
-                      type="checkbox"
-                      value={permission._id}
-                    />
-                    {permission.name}
-                  </Col>
-                ))}
-              </Row>
-              <br />
-            </div>
-          ))}
-          <FormItem name="_id" label={false}>
-            <Input type="hidden" />
-          </FormItem>
-        </>
-      );
+    return (
+      <>
+        {keys(permissionsByGroup).map(name => (
+          <div key={name}>
+            <Row>{name}</Row>
+            <Row>
+              {permissionsByGroup[name].map(permission => (
+                <Col key={permission._id} span={8}>
+                  <input
+                    defaultChecked={!!defaultPermissions.find(
+                      p => p._id === permission._id)}
+                    onChange={handleCheckboxChange}
+                    type="checkbox"
+                    value={permission._id}
+                  />
+                  {permission.name}
+                </Col>
+              ))}
+            </Row>
+            <br/>
+          </div>
+        ))}
+        <FormItem name="_id" label={false}>
+          <Input type="hidden"/>
+        </FormItem>
+      </>
+    );
 
   };
 
   const renderFooter = () => {
     return (
       <>
-        <Button onClick={() => handleUpdateModalVisible(false, values)}>取消</Button>
+        <Button
+          onClick={() => handleUpdateModalVisible(false, values)}>取消</Button>
         <Button type="primary" onClick={() => handleNext()}>
           保存
         </Button>
