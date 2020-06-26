@@ -27,13 +27,13 @@ const CreateForm: React.FC<CreateFormProps> = props => {
 
   useEffect(() => {
     async function getSelectedMenus() {
-      const response = await request('/admin/menus/selectMenus');
-      if (response.success) {
-        setMenus(response.data);
+      const response = await request('/oauth2/selectMenus');
+      if (response) {
+        setMenus(response);
       }
     }
 
-    // getSelectedMenus();
+    getSelectedMenus();
   }, []);
 
   return (
@@ -54,8 +54,8 @@ const CreateForm: React.FC<CreateFormProps> = props => {
         >
           <Input placeholder="请输入名称！" />
         </FormItem>
-        <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="中文描述" name="nameCn">
-          <Input placeholder="请输入中文描述！" />
+        <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="中文描述" name="icon">
+          <Input placeholder="请输入图标名称！" />
         </FormItem>
         <FormItem
           labelCol={{ span: 5 }}
@@ -71,11 +71,11 @@ const CreateForm: React.FC<CreateFormProps> = props => {
           <Input placeholder="请输入权限！" />
         </FormItem>
 
-        <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="父类菜单" name="parent">
+        <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="父类菜单" name="idParent">
           <Select allowClear placeholder="请选择父类菜单！" style={{ width: '100%' }}>
             {menus.map((menu: TableListItem) => (
-              <Option key={menu._id} value={menu._id}>
-                {menu.nameCn}
+              <Option key={menu.idMenu} value={menu.idMenu}>
+                {menu.path}
               </Option>
             ))}
           </Select>

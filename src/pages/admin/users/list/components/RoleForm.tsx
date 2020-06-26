@@ -72,7 +72,7 @@ const RoleForm: React.FC<UpdateFormProps> = props => {
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { checked, value } = e.target;
+    const { checked, id:value } = e.target;
 
     if (checked && roleIds.every(id => id !== value)) {
       setRoleIds([...roleIds, value]);
@@ -96,7 +96,8 @@ const RoleForm: React.FC<UpdateFormProps> = props => {
                 defaultChecked={!!defaultRoles.find(p => p._id === role._id)}
                 onChange={handleCheckboxChange}
                 type="checkbox"
-                value={role?._id}>
+                id={role?._id}
+              >
                 {role?.roles?.name}
               </Checkbox>
 

@@ -82,7 +82,7 @@ const PermissionForm: React.FC<UpdateFormProps> = props => {
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { checked, value } = e.target;
+    const { checked, id:value } = e.target;
 
     if (checked && permissionIds.every(id => id !== value)) {
       setPermissionIds([...permissionIds, value]);
@@ -95,23 +95,22 @@ const PermissionForm: React.FC<UpdateFormProps> = props => {
     const permissionsByGroup = groupBy(permissions,
       (permission: PermissionData) => permission.name.split(' ').slice()[0]);
 
-    if (loading) {
-      return <Spin/>;
-    }
     return (
-      <>
+      <Spin spinning={loading}>
         {keys(permissionsByGroup).map(name => (
           <div key={name}>
             <Divider  orientation="left" plain>{name}</Divider>
             <Row>
               {permissionsByGroup[name].map(permission => (
                 <Col key={permission._id} span={8}>
+
                   <Checkbox
                     defaultChecked={!!defaultPermissions.find(
                       p => p._id === permission._id)}
                     onChange={handleCheckboxChange}
                     type="checkbox"
-                    value={permission._id}>
+                    id={permission._id}
+                  >
                     {permission.name}
                   </Checkbox>
 
@@ -124,7 +123,7 @@ const PermissionForm: React.FC<UpdateFormProps> = props => {
         <FormItem name="_id" label={false}>
           <Input type="hidden"/>
         </FormItem>
-      </>
+      </Spin>
     );
 
   };

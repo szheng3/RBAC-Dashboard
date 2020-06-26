@@ -1,5 +1,5 @@
 export interface TableListItem {
-  _id: string;
+  idMenu: string;
   name: string;
   path: string;
   parent: TableListItem;

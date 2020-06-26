@@ -8,7 +8,7 @@ export async function queryMenus(params?: TableListParams) {
 }
 
 export async function addMenu(params: CreateParams) {
-  return request('/admin/menus', {
+  return request('/oauth2/menus', {
     method: 'POST',
     data: {
       ...params,

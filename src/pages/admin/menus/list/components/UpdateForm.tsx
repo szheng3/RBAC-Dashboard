@@ -58,13 +58,13 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
 
   useEffect(() => {
     async function getSelectedMenus() {
-      const response = await request('/admin/menus/selectMenus');
-      if (response.success) {
-        setMenus(response.data);
+      const response = await request('/oauth2/selectMenus');
+      if (response) {
+        setMenus(response);
       }
     }
 
-    // getSelectedMenus();
+    getSelectedMenus();
   }, []);
 
   const renderContent = () => {
@@ -87,8 +87,8 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
         <FormItem label="父类菜单" name="parentId">
           <Select allowClear placeholder="请选择父类菜单！" style={{ width: '100%' }}>
             {menus.map((menu: TableListItem) => (
-              <Option key={menu._id} value={menu._id}>
-                {menu.nameCn}
+              <Option key={menu.idMenu} value={menu.idMenu}>
+                {menu.name}
               </Option>
             ))}
           </Select>

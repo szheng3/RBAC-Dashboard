@@ -17,13 +17,7 @@ import checkPermission from '@/utils/checkPermission';
 const handleAdd = async (fields: CreateParams) => {
   const hide = message.loading('正在添加');
   try {
-    await addMenu({
-      name: fields.name,
-      path: fields.path,
-      parent: fields.parent,
-      nameCn: fields.nameCn,
-      permission: fields.permission,
-    });
+    await addMenu(fields);
     hide();
     message.success('添加成功');
     return true;
@@ -125,7 +119,7 @@ const TableList: React.FC<{}> = () => {
   ];
 
   const renderCreateButton = () => {
-    if (checkPermission('create role')) {
+    if (checkPermission('MENU_WRITE')) {
       return (
         <Button type="primary" onClick={() => handleModalVisible(true)}>
           <PlusOutlined/> 新建
@@ -140,7 +134,7 @@ const TableList: React.FC<{}> = () => {
     <PageHeaderWrapper>
       <ProTable<TableListItem>
         actionRef={actionRef}
-        rowKey="_id"
+        rowKey="idMenu"
         toolBarRender={(action, { selectedRows }) => [renderCreateButton()]}
         pagination={{ defaultPageSize: 8 }}
         search={false}
