@@ -83,12 +83,12 @@ const RoleForm: React.FC<UpdateFormProps> = props => {
 
   const renderContent = () => {
 
-    if (loading) {
-      return <Spin/>;
-    }
+    // if (loading) {
+    //   return <Spin/>;
+    // }
 
     return (
-      <>
+      <Spin spinning={loading}>
         <Row>
           {roles.map(role => (
             <Col key={role?._id} span={8}>
@@ -107,7 +107,7 @@ const RoleForm: React.FC<UpdateFormProps> = props => {
         <FormItem name="_id" label={false}>
           <Input type="hidden" />
         </FormItem>
-      </>
+      </Spin>
     );
   };
 
