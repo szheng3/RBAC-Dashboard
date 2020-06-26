@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Input, Modal, Row, Col, Spin } from 'antd';
+import { Form, Button, Input, Modal, Row, Col, Spin, Checkbox } from 'antd';
 
 import { TableListItem, RoleFormParams } from '../data.d';
 import { queryRoles } from '@/pages/admin/roles/list/service';
@@ -31,7 +31,6 @@ const RoleForm: React.FC<UpdateFormProps> = props => {
     password: props.values.password,
   });
 
-  console.log(props.values)
   const [roles, setRoles] = useState<RoleData[]>([]);
 
   const [loading, setLoading] = useState<boolean | undefined>(undefined);
@@ -93,13 +92,14 @@ const RoleForm: React.FC<UpdateFormProps> = props => {
         <Row>
           {roles.map(role => (
             <Col key={role?._id} span={8}>
-              <input
+              <Checkbox
                 defaultChecked={!!defaultRoles.find(p => p._id === role._id)}
                 onChange={handleCheckboxChange}
                 type="checkbox"
-                value={role?._id}
-              />
-              {role?.roles?.name}
+                value={role?._id}>
+                {role?.roles?.name}
+              </Checkbox>
+
             </Col>
           ))}
         </Row>

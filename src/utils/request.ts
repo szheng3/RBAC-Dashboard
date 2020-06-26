@@ -40,7 +40,7 @@ const errorHandler = (error: { response: Response }): Response | void => {
 
   notification.error({
     message: `请求错误 ${status}: ${url}`,
-    description: errorText,
+    description: JSON.stringify(error.data),
   });
 
   if (status === 401) {

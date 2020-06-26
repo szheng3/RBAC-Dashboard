@@ -43,8 +43,10 @@ const handleUpdate = async (fields: FormValueType) => {
     return true;
   } catch (error) {
     hide();
-    message.error('修改失败请重试！');
-    return false;
+    console.log(error)
+    // message.error('修改失败请重试！');
+    throw(error)
+    // return false;
   }
 };
 
@@ -183,15 +185,25 @@ const TableList: React.FC<{}> = () => {
       />
       {stepFormValues && Object.keys(stepFormValues).length ? (
         <UpdateForm
-          onSubmit={async value => {
-            const success = await handleUpdate(value);
-            if (success) {
-              handleUpdateModalVisible(false);
-              setStepFormValues({});
-              if (actionRef.current) {
-                actionRef.current.reload();
+          onSubmit={async (value,form) => {
+
+            try {
+              const success = await handleUpdate(value);
+              if (success) {
+                handleUpdateModalVisible(false);
+                setStepFormValues({});
+                if (actionRef.current) {
+                  actionRef.current.reload();
+                }
               }
+            } catch (e) {
+              form?.setFields(
+                Object.keys(e.data).map((key) =>  ({name:key,errors:[e.data[key]]}))
+              );
+              // console.log(form)
+
             }
+
           }}
           onCancel={() => {
             handleUpdateModalVisible(false);

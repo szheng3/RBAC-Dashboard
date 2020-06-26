@@ -24,7 +24,6 @@ const formLayout = {
 };
 
 const UpdateForm: React.FC<UpdateFormProps> = props => {
-  console.log(props.values)
   const [formVals, setFormVals] = useState<FormValueType>({
     id: props.values.id,
     username: props.values.users.name,
@@ -42,10 +41,9 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
 
   const handleNext = async () => {
     const fieldsValue = await form.validateFields();
-
     setFormVals({ ...formVals, ...fieldsValue });
 
-    handleUpdate(fieldsValue);
+    handleUpdate(fieldsValue,form);
   };
 
   const renderContent = () => {
@@ -54,7 +52,7 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
         <FormItem
           name="username"
           label="用户名"
-          rules={[{ required: true, message: '请输入用户名！', min: 5 }]}
+          rules={[{ required: true, message: '请输入用户名！', min: 4 }]}
         >
           <Input placeholder="请输入" />
         </FormItem>

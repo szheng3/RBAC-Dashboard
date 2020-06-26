@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Form, Input, Modal, Row, Spin } from 'antd';
+import { Button, Col, Form, Input, Modal, Row, Spin, Checkbox, Divider } from 'antd';
 
 import { PermissionFormParams, TableListItem } from '../data.d';
 import { queryPermissions } from '@/pages/admin/permissions/list/service';
@@ -102,18 +102,19 @@ const PermissionForm: React.FC<UpdateFormProps> = props => {
       <>
         {keys(permissionsByGroup).map(name => (
           <div key={name}>
-            <Row>{name}</Row>
+            <Divider  orientation="left" plain>{name}</Divider>
             <Row>
               {permissionsByGroup[name].map(permission => (
                 <Col key={permission._id} span={8}>
-                  <input
+                  <Checkbox
                     defaultChecked={!!defaultPermissions.find(
                       p => p._id === permission._id)}
                     onChange={handleCheckboxChange}
                     type="checkbox"
-                    value={permission._id}
-                  />
-                  {permission.name}
+                    value={permission._id}>
+                    {permission.name}
+                  </Checkbox>
+
                 </Col>
               ))}
             </Row>
