@@ -54,6 +54,7 @@ const handleUpdate = async (fields: FormValueType) => {
  */
 const handleRoles = async (fields: RoleFormParams) => {
   const hide = message.loading('正在修改');
+  console.log(fields)
   try {
     await setRoles({
       _id: fields._id,

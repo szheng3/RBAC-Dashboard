@@ -26,11 +26,12 @@ const formLayout = {
 
 const RoleForm: React.FC<UpdateFormProps> = props => {
   const [formVals, setFormVals] = useState<FormValueType>({
-    _id: props.values._id,
+    _id: props.values.id,
     username: props.values.username,
     password: props.values.password,
   });
 
+  console.log(props.values)
   const [roles, setRoles] = useState<RoleData[]>([]);
 
   const [loading, setLoading] = useState<boolean | undefined>(undefined);
@@ -86,14 +87,14 @@ const RoleForm: React.FC<UpdateFormProps> = props => {
       <>
         <Row>
           {roles.map(role => (
-            <Col key={role._id} span={8}>
+            <Col key={role?._id} span={8}>
               <input
                 defaultChecked={!!defaultRoles.find(p => p._id === role._id)}
                 onChange={handleCheckboxChange}
                 type="checkbox"
-                value={role._id}
+                value={role?._id}
               />
-              {role.name}
+              {role?.roles?.name}
             </Col>
           ))}
         </Row>
@@ -130,11 +131,7 @@ const RoleForm: React.FC<UpdateFormProps> = props => {
       <Form
         {...formLayout}
         form={form}
-        initialValues={{
-          _id: formVals._id,
-          username: formVals.username,
-          roles: formVals.roles,
-        }}
+        initialValues={formVals}
       >
         {renderContent()}
       </Form>
