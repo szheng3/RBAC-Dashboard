@@ -27,7 +27,7 @@ export async function updateUser(params: FormValueType) {
 }
 
 export async function setRoles(params: RoleFormParams) {
-  return request(`/admin/users/${params._id}/roles`, {
+  return request(`/oauth2/userHasRoles`, {
     method: 'POST',
     data: {
       ...params,

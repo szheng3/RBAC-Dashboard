@@ -57,7 +57,7 @@ const handleRoles = async (fields: RoleFormParams) => {
   console.log(fields)
   try {
     await setRoles({
-      _id: fields._id,
+      userId: fields._id,
       roleIds: fields.roleIds,
     });
     hide();

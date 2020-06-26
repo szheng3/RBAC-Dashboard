@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Input, Modal, Row, Col } from 'antd';
+import { Form, Button, Input, Modal, Row, Col, Spin } from 'antd';
 
 import { TableListItem, RoleFormParams } from '../data.d';
 import { queryRoles } from '@/pages/admin/roles/list/service';
@@ -83,6 +83,11 @@ const RoleForm: React.FC<UpdateFormProps> = props => {
   };
 
   const renderContent = () => {
+
+    if (loading) {
+      return <Spin/>;
+    }
+
     return (
       <>
         <Row>
