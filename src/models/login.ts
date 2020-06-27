@@ -6,7 +6,7 @@ import { getPageQuery } from '@/utils/utils';
 import { message } from 'antd';
 import { reloadAuthorized } from '@/utils/Authorized';
 import { remove, save } from '@/utils/StorageUtil';
-import { ModelType } from '@/typings';
+import { ModelType } from '@/models/connect';
 
 export interface StateType {
   success?: boolean | null | undefined;
@@ -20,7 +20,7 @@ const Model: ModelType<StateType> = {
   },
 
   effects: {
-    *login({ payload }, { call, put }) {
+    * login({ payload }, { call, put }) {
       try {
         const response = yield call(fakeAccountLogin, payload);
 
@@ -64,16 +64,14 @@ const Model: ModelType<StateType> = {
       }
     },
 
-    *getCaptcha({ payload }, { call }) {
+    * getCaptcha({ payload }, { call }) {
       yield call(getFakeCaptcha, payload);
     },
 
     logout() {
-      console.log('logout');
       const { redirect } = getPageQuery();
       // Note: There may be security issues, please note
       if (window.location.pathname !== '/user/login' && !redirect) {
-        remove('sso');
 
         history.replace({
           pathname: '/user/login',
@@ -81,6 +79,10 @@ const Model: ModelType<StateType> = {
             redirect: window.location.href,
           }),
         });
+        setTimeout(() => {
+          remove('sso');
+
+        }, 200);
       }
     },
   },

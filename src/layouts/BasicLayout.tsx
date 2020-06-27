@@ -17,7 +17,6 @@ import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { ConnectState } from '@/models/connect';
 import { getAuthorityFromRouter, isAntDesignPro } from '@/utils/utils';
-// @ts-ignore
 import logo from '@/assets/logo.svg';
 import { useDispatch, useSelector } from '@@/plugin-dva/exports';
 
@@ -146,9 +145,9 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
 
   useEffect(() => {
     if (dispatch) {
-      dispatch({
-        type: 'user/fetchCurrent',
-      });
+      // dispatch({
+      //   type: 'user/fetchCurrent',
+      // });
       dispatch({
         type: 'menu/fetch',
       });

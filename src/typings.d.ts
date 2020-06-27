@@ -1,4 +1,4 @@
-import { Effect, Reducer, Subscription } from 'umi';
+
 
 declare module 'slash2';
 declare module '*.css';
@@ -12,6 +12,7 @@ declare module '*.jpeg';
 declare module '*.gif';
 declare module '*.bmp';
 declare module '*.tiff';
+declare module '*.svg';
 declare module 'omit.js';
 
 // google analytics interface
@@ -32,17 +33,6 @@ interface Window {
   reloadAuthorized: () => void;
 }
 
-export interface ModelType<T> {
-  namespace: string;
-  state: T;
-  effects?: {
-    [key: string]: Effect;
-  };
-  reducers?: {
-    [key: string]: Reducer<T>;
-  };
-  subscriptions?: { [key: string]: Subscription };
-}
 
 declare let ga: Function;
 

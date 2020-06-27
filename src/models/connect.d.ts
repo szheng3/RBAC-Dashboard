@@ -5,7 +5,12 @@ import { DefaultSettings as SettingModelState } from '../../config/defaultSettin
 import { UserModelState } from './user';
 import { StateType } from './login';
 import { MenuModelState } from '@/models/menu';
-import { Dispatch } from '@@/plugin-dva/connect';
+import {
+  Dispatch,
+  Effect,
+  ImmerReducer,
+  Subscription,
+} from '@@/plugin-dva/connect';
 
 export { GlobalModelState, SettingModelState, UserModelState };
 
@@ -48,3 +53,19 @@ export interface AnyAction extends Action {
 export interface Action<T = any> {
   type: T;
 }
+
+export interface ModelType<T> {
+  namespace: string;
+  state: T;
+  effects?: {
+    [key: string]: Effect;
+  };
+  reducers?: {
+    [key: string]: Reducer<T>|ImmerReducer<T>;
+  };
+  subscriptions?: { [key: string]: Subscription };
+}
+export type Reducer<S = any, A extends Action = AnyAction> = (
+  state: S ,
+  action: A
+) => S;

@@ -1,5 +1,5 @@
-import { ModelType } from '@/typings';
 import { queryMenus } from '@/services/menu';
+import { ModelType } from '@/models/connect';
 
 export interface Permission {
   name: string;

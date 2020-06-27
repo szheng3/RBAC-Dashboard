@@ -1,7 +1,7 @@
 import { NoticeIconData } from '@/components/NoticeIcon';
 import { queryNotices } from '@/services/user';
 import { ConnectState } from './connect.d';
-import { ModelType } from '@/typings';
+import { ModelType } from '@/models/connect';
 
 export interface NoticeItem extends NoticeIconData {
   id: string;

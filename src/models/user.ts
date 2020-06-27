@@ -1,6 +1,6 @@
 import { queryCurrent, query as queryUsers } from '@/services/user';
 import { TableListItem as RoleData } from '../pages/admin/roles/list/data.d';
-import { ModelType } from '@/typings';
+import { ModelType } from '@/models/connect';
 
 export interface CurrentUser {
   avatar?: string;
