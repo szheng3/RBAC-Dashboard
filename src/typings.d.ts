@@ -1,5 +1,3 @@
-
-
 declare module 'slash2';
 declare module '*.css';
 declare module '*.less';
@@ -32,7 +30,6 @@ interface Window {
   ) => void;
   reloadAuthorized: () => void;
 }
-
 
 declare let ga: Function;
 

@@ -20,7 +20,7 @@ const Model: ModelType<StateType> = {
   },
 
   effects: {
-    * login({ payload }, { call, put }) {
+    *login({ payload }, { call, put }) {
       try {
         const response = yield call(fakeAccountLogin, payload);
 
@@ -64,7 +64,7 @@ const Model: ModelType<StateType> = {
       }
     },
 
-    * getCaptcha({ payload }, { call }) {
+    *getCaptcha({ payload }, { call }) {
       yield call(getFakeCaptcha, payload);
     },
 
@@ -72,7 +72,6 @@ const Model: ModelType<StateType> = {
       const { redirect } = getPageQuery();
       // Note: There may be security issues, please note
       if (window.location.pathname !== '/user/login' && !redirect) {
-
         history.replace({
           pathname: '/user/login',
           search: stringify({
@@ -81,7 +80,6 @@ const Model: ModelType<StateType> = {
         });
         setTimeout(() => {
           remove('sso');
-
         }, 200);
       }
     },

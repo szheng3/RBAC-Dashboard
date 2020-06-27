@@ -56,6 +56,7 @@
     "@ant-design/pro-table": "2.3.5",
     "antd": "4.3.4",
     "classnames": "^2.2.6",
+    "js-cookie": "^2.2.1",
     "lodash": "^4.17.11",
     "moment": "^2.25.3",
     "omit.js": "^1.0.2",
@@ -66,8 +67,7 @@
     "react-helmet-async": "^1.0.4",
     "umi": "^3.1.2",
     "umi-request": "^1.0.8",
-    "use-merge-value": "^1.0.1",
-    "js-cookie": "^2.2.1"
+    "use-merge-value": "^1.0.1"
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^1.0.18",

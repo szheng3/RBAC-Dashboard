@@ -1,12 +1,10 @@
 import { AlipayCircleOutlined, TaobaoCircleOutlined, WeiboCircleOutlined } from '@ant-design/icons';
 import { Alert, Checkbox } from 'antd';
 import React, { useState } from 'react';
-import { Dispatch, AnyAction } from 'redux';
-import { Link } from 'umi';
-import { connect } from 'dva';
+import { Link, connect } from 'umi';
 import { StateType } from '@/models/login';
 import { LoginParamsType } from '@/services/login';
-import { ConnectState } from '@/models/connect';
+import { ConnectState, Dispatch, AnyAction } from '@/models/connect';
 import styles from './style.less';
 import LoginFrom from './components/Login';
 

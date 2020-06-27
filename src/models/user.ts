@@ -5,8 +5,10 @@ import { ModelType } from '@/models/connect';
 export interface CurrentUser {
   avatar?: string;
   userid?: string;
+  name?:string;
   roles?: RoleData[];
   isAdmin?: boolean;
+  unreadCount?:any;
 }
 
 export interface UserModelState {
