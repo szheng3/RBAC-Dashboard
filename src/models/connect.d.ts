@@ -45,9 +45,8 @@ export interface AnyAction extends Action {
   [extraProps: string]: any;
 }
 export interface Dispatch<A extends Action = AnyAction> {
-  <T extends A>(action: T): T
+  <T extends A>(action: T): T;
 }
-
 
 export interface Action<T = any> {
   type: T;
