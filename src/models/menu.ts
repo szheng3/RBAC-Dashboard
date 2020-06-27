@@ -1,14 +1,12 @@
 import { ModelType } from '@/typings';
 import { queryMenus } from '@/services/menu';
 
-
 export interface Permission {
   name: string;
   createDate: Date;
   updateDate: Date;
   _id: string;
 }
-
 
 export interface MenuType {
   idMenu: number;
@@ -32,7 +30,7 @@ const MenuModel: ModelType<MenuModelState> = {
   state: { menu: [] },
 
   effects: {
-    * fetch(_, { call, put }) {
+    *fetch(_, { call, put }) {
       const response = yield call(queryMenus);
       yield put({
         type: 'saveCurrentUser',

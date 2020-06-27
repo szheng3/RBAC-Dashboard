@@ -1,4 +1,3 @@
-
 import { NoticeIconData } from '@/components/NoticeIcon';
 import { queryNotices } from '@/services/user';
 import { ConnectState } from './connect.d';
@@ -14,7 +13,6 @@ export interface GlobalModelState {
   collapsed: boolean;
   notices: NoticeItem[];
 }
-
 
 const GlobalModel: ModelType<GlobalModelState> = {
   namespace: 'global',

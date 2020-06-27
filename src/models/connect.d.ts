@@ -27,7 +27,7 @@ export interface ConnectState {
   settings: SettingModelState;
   user: UserModelState;
   login: StateType;
-  menu:MenuModelState;
+  menu: MenuModelState;
 }
 
 export interface Route extends MenuDataItem {

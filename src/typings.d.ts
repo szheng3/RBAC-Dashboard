@@ -1,4 +1,4 @@
-import { Effect, Reducer,Subscription } from 'umi';
+import { Effect, Reducer, Subscription } from 'umi';
 
 declare module 'slash2';
 declare module '*.css';
@@ -41,7 +41,7 @@ export interface ModelType<T> {
   reducers?: {
     [key: string]: Reducer<T>;
   };
-  subscriptions?: { [key: string]: Subscription }
+  subscriptions?: { [key: string]: Subscription };
 }
 
 declare let ga: Function;

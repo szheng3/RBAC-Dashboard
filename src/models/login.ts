@@ -1,4 +1,3 @@
-
 import { stringify } from 'querystring';
 import { history } from 'umi';
 
@@ -12,7 +11,6 @@ import { ModelType } from '@/typings';
 export interface StateType {
   success?: boolean | null | undefined;
 }
-
 
 const Model: ModelType<StateType> = {
   namespace: 'login',

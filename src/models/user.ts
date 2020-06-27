@@ -13,8 +13,6 @@ export interface UserModelState {
   currentUser?: CurrentUser;
 }
 
-
-
 const UserModel: ModelType<UserModelState> = {
   namespace: 'user',
 

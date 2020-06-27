@@ -84,7 +84,7 @@ const defaultFooterDom = (
       },
       {
         key: 'github',
-        title: <GithubOutlined/>,
+        title: <GithubOutlined />,
         href: 'https://github.com/ant-design/ant-design-pro',
         blankTarget: true,
       },
@@ -112,8 +112,7 @@ const footerRender: BasicLayoutProps['footerRender'] = () => {
           textAlign: 'center',
         }}
       >
-        <a href="https://www.netlify.com" target="_blank"
-           rel="noopener noreferrer">
+        <a href="https://www.netlify.com" target="_blank" rel="noopener noreferrer">
           <img
             src="https://www.netlify.com/img/global/badges/netlify-color-bg.svg"
             width="82px"
@@ -140,9 +139,10 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
     ({ global, settings, menu, loading }: ConnectState) => ({
       collapsed: global.collapsed,
       settings,
-      menu:menu.menu,
+      menu: menu.menu,
       menuLoading: loading.effects['menu/fetch'],
-    }));
+    }),
+  );
 
   useEffect(() => {
     if (dispatch) {
@@ -153,7 +153,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         type: 'menu/fetch',
       });
     }
-
   }, []);
   /**
    * init variables
@@ -168,8 +167,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
     }
   }; // get children authority
 
-  const authorized = getAuthorityFromRouter(props.route.routes,
-    location.pathname || '/') || {
+  const authorized = getAuthorityFromRouter(props.route.routes, location.pathname || '/') || {
     authority: undefined,
   };
   return (
@@ -185,8 +183,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
       )}
       onCollapse={handleMenuCollapse}
       menuItemRender={(menuItemProps, defaultDom) => {
-        if (menuItemProps.isUrl || menuItemProps.children ||
-          !menuItemProps.path) {
+        if (menuItemProps.isUrl || menuItemProps.children || !menuItemProps.path) {
           return defaultDom;
         }
 
@@ -209,7 +206,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
       }}
       footerRender={footerRender}
       menuDataRender={() => menu as MenuDataItem[]}
-      rightContentRender={() => <RightContent/>}
+      rightContentRender={() => <RightContent />}
       {...props}
       {...settings}
     >
