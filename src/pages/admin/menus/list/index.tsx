@@ -35,14 +35,7 @@ const handleAdd = async (fields: CreateParams) => {
 const handleUpdate = async (fields: UpdateParams) => {
   const hide = message.loading('正在修改');
   try {
-    await updateMenu({
-      _id: fields._id,
-      name: fields.name,
-      path: fields.path,
-      parent: fields.parentId,
-      nameCn: fields.nameCn,
-      permission: fields.permission,
-    });
+    await updateMenu(fields);
     hide();
 
     message.success('修改成功');
@@ -69,6 +62,12 @@ const TableList: React.FC<{}> = () => {
       title: '中文描述',
       dataIndex: 'menu',
       renderText: (menu: any) => menu?.name,
+
+    },
+    {
+      title: '图标',
+      dataIndex: 'menu',
+      renderText: (menu: any) => menu?.icon,
 
     },
     {

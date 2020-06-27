@@ -35,7 +35,7 @@ const CreateForm: React.FC<CreateFormProps> = props => {
         setMenus(response);
       }
     }
-    async function getRoles() {
+    async function getPermissions() {
       const response = await queryPermissions();
       if (response) {
         console.log(response)
@@ -44,7 +44,7 @@ const CreateForm: React.FC<CreateFormProps> = props => {
     }
 
     getSelectedMenus();
-    getRoles();
+    getPermissions();
   }, []);
 
   return (

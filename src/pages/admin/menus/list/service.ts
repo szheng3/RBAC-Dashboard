@@ -17,8 +17,8 @@ export async function addMenu(params: CreateParams) {
 }
 
 export async function updateMenu(params: UpdateParams) {
-  return request(`/admin/menus/${params._id}`, {
-    method: 'PUT',
+  return request(`/oauth2/menus`, {
+    method: 'POST',
     data: {
       ...params,
     },
