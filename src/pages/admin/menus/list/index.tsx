@@ -3,12 +3,12 @@ import { Button, message } from 'antd';
 import React, { useRef, useState } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
+import moment from 'moment';
+import checkPermission from '@/utils/checkPermission';
 import CreateForm from './components/CreateForm';
 import UpdateForm from './components/UpdateForm';
 import { CreateParams, TableListItem, UpdateParams } from './data.d';
 import { addMenu, queryMenus, updateMenu } from './service';
-import moment from 'moment';
-import checkPermission from '@/utils/checkPermission';
 
 /**
  * 添加菜单
@@ -124,9 +124,9 @@ const TableList: React.FC<{}> = () => {
           <PlusOutlined/> 新建
         </Button>
       );
-    } else {
-      return null;
     }
+      return null;
+
   };
 
   return (

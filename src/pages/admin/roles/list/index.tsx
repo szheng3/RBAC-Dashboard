@@ -3,14 +3,14 @@ import { Button, Divider, message } from 'antd';
 import React, { useState, useRef } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
+import moment from 'moment';
+import checkPermission from '@/utils/checkPermission';
 import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
 import { TableListItem, CreateParams, PermissionFormParams } from './data.d';
 import { queryRoles, updateRole, addRole, setPermissions } from './service';
-import moment from 'moment';
 import PermissionForm from './components/PermissionForm';
 import { TableListItem as PermissionData } from '../../permissions/list/data.d';
-import checkPermission from '@/utils/checkPermission';
 
 /**
  * 添加角色
@@ -146,9 +146,9 @@ const TableList: React.FC<{}> = () => {
           <PlusOutlined /> 新建
         </Button>
       );
-    } else {
-      return null;
     }
+      return null;
+
   };
 
   return (

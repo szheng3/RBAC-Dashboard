@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Input, Modal, Select } from 'antd';
-import { TableListItem, CreateParams } from '../data.d';
 import request from '@/utils/request';
-import { queryRoles } from '@/pages/admin/roles/list/service';
 import { queryPermissions } from '@/pages/admin/permissions/list/service';
+import { TableListItem, CreateParams } from '../data.d';
 
 const FormItem = Form.Item;
 

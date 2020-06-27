@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Input, Modal, Row, Col, Spin, Checkbox } from 'antd';
 
-import { TableListItem, RoleFormParams } from '../data.d';
 import { queryRoles } from '@/pages/admin/roles/list/service';
+import { TableListItem, RoleFormParams } from '../data.d';
 import { TableListItem as RoleData } from '../../../roles/list/data.d';
 
 export interface FormValueType extends Partial<TableListItem> {}

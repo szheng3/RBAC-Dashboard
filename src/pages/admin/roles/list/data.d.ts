@@ -1,4 +1,5 @@
 import { TableListItem as PermissionData } from '../../permissions/list/data.d';
+
 export interface TableListItem {
   _id: string;
   name: string;

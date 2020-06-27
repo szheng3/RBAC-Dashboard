@@ -1,7 +1,7 @@
 import { Reducer } from 'redux';
 import { Effect } from 'dva';
 import { stringify } from 'querystring';
-import router from 'umi/router';
+import { history } from 'umi';
 
 import { fakeAccountLogin, getFakeCaptcha } from '@/services/login';
 import { getPageQuery } from '@/utils/utils';
@@ -66,7 +66,7 @@ const Model: LoginModelType = {
 
           reloadAuthorized();
 
-          router.replace(redirect || '/');
+          history.replace(redirect || '/');
         }
       } catch (e) {
         message.error(e.data.message);
@@ -83,12 +83,13 @@ const Model: LoginModelType = {
     },
 
     logout() {
+      console.log("logout")
       const { redirect } = getPageQuery();
       // Note: There may be security issues, please note
       if (window.location.pathname !== '/user/login' && !redirect) {
         remove('sso');
 
-        router.replace({
+        history.replace({
           pathname: '/user/login',
           search: stringify({
             redirect: window.location.href,

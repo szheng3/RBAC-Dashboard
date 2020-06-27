@@ -1,4 +1,5 @@
 import { TableListItem as RoleData } from '../../roles/list/data.d';
+
 export interface TableListItem {
   id: string;
   username: string;

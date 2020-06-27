@@ -4,24 +4,21 @@
  * https://github.com/ant-design/ant-design-pro-layout
  */
 import ProLayout, {
-  MenuDataItem,
   BasicLayoutProps as ProLayoutProps,
-  Settings,
   DefaultFooter,
+  MenuDataItem,
+  Settings,
 } from '@ant-design/pro-layout';
-import { formatMessage } from 'umi-plugin-react/locale';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'umi';
-import { Dispatch } from 'redux';
-import { connect } from 'dva';
-import { GithubOutlined ,createFromIconfontCN} from '@ant-design/icons';
-import { Result, Button } from 'antd';
+import { connect, formatMessage, Link ,Dispatch} from 'umi';
+import { createFromIconfontCN, GithubOutlined } from '@ant-design/icons';
+import { Button, Result } from 'antd';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { ConnectState } from '@/models/connect';
-import { isAntDesignPro, getAuthorityFromRouter } from '@/utils/utils';
-import logo from '../assets/logo.svg';
+import { getAuthorityFromRouter, isAntDesignPro } from '@/utils/utils';
 import request from '@/utils/request';
+import logo from '../assets/logo.svg';
 
 const noMatch = (
   <Result
@@ -54,6 +51,7 @@ export interface BasicLayoutProps extends ProLayoutProps {
   settings: Settings;
   dispatch: Dispatch;
 }
+
 export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
   breadcrumbNameMap: {
     [path: string]: MenuDataItem;
@@ -65,7 +63,10 @@ export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
 
 const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
   menuList.map(item => {
-    const localItem = { ...item, children: item.children ? menuDataRender(item.children) : [] };
+    const localItem = {
+      ...item,
+      children: item.children ? menuDataRender(item.children) : [],
+    };
     return Authorized.check(item.authority, localItem, null) as MenuDataItem;
   });
 
@@ -81,7 +82,7 @@ const defaultFooterDom = (
       },
       {
         key: 'github',
-        title: <GithubOutlined />,
+        title: <GithubOutlined/>,
         href: 'https://github.com/ant-design/ant-design-pro',
         blankTarget: true,
       },
@@ -109,7 +110,8 @@ const footerRender: BasicLayoutProps['footerRender'] = () => {
           textAlign: 'center',
         }}
       >
-        <a href="https://www.netlify.com" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.netlify.com" target="_blank"
+           rel="noopener noreferrer">
           <img
             src="https://www.netlify.com/img/global/badges/netlify-color-bg.svg"
             width="82px"
@@ -187,7 +189,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
     }
   }; // get children authority
 
-  const authorized = getAuthorityFromRouter(props.route.routes, location.pathname || '/') || {
+  const authorized = getAuthorityFromRouter(props.route.routes,
+    location.pathname || '/') || {
     authority: undefined,
   };
   return (
@@ -202,7 +205,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       )}
       onCollapse={handleMenuCollapse}
       menuItemRender={(menuItemProps, defaultDom) => {
-        if (menuItemProps.isUrl || menuItemProps.children || !menuItemProps.path) {
+        if (menuItemProps.isUrl || menuItemProps.children ||
+          !menuItemProps.path) {
           return defaultDom;
         }
 
@@ -225,7 +229,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       }}
       footerRender={footerRender}
       menuDataRender={() => menuData}
-      rightContentRender={() => <RightContent />}
+      rightContentRender={() => <RightContent/>}
       {...props}
       {...settings}
     >

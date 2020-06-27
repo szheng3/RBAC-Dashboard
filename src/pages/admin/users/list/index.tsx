@@ -3,13 +3,13 @@ import { Button, Divider, message } from 'antd';
 import React, { useState, useRef } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
+import moment from 'moment';
+import checkPermission from '@/utils/checkPermission';
 import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
 import RoleForm from './components/RoleForm';
 import { TableListItem, CreateParams, RoleFormParams } from './data.d';
 import { queryUsers, updateUser, addUser, setRoles } from './service';
-import moment from 'moment';
-import checkPermission from '@/utils/checkPermission';
 
 /**
  * 添加员工
@@ -154,9 +154,9 @@ const TableList: React.FC<{}> = () => {
           <PlusOutlined /> 新建
         </Button>
       );
-    } else {
-      return null;
     }
+      return null;
+
   };
 
   return (

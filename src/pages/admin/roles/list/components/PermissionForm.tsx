@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Form, Input, Modal, Row, Spin, Checkbox, Divider } from 'antd';
 
-import { PermissionFormParams, TableListItem } from '../data.d';
 import { queryPermissions } from '@/pages/admin/permissions/list/service';
-import { TableListItem as PermissionData } from '../../../permissions/list/data.d';
 import groupBy from 'lodash/groupBy';
 import { keys } from 'lodash';
+import { TableListItem as PermissionData } from '../../../permissions/list/data.d';
+import { PermissionFormParams, TableListItem } from '../data.d';
 
 export interface FormValueType extends Partial<TableListItem> {}
 

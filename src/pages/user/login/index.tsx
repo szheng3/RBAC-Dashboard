@@ -5,9 +5,9 @@ import { Dispatch, AnyAction } from 'redux';
 import { Link } from 'umi';
 import { connect } from 'dva';
 import { StateType } from '@/models/login';
-import styles from './style.less';
 import { LoginParamsType } from '@/services/login';
 import { ConnectState } from '@/models/connect';
+import styles from './style.less';
 import LoginFrom from './components/Login';
 
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = LoginFrom;

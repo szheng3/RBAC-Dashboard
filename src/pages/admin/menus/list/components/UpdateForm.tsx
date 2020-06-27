@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Input, Modal, Select } from 'antd';
 import request from '@/utils/request';
 
-import { TableListItem, UpdateParams } from '../data.d';
 import { queryPermissions } from '@/pages/admin/permissions/list/service';
+import { TableListItem, UpdateParams } from '../data.d';
 
 export interface FormValueType extends Partial<TableListItem> {}
 
