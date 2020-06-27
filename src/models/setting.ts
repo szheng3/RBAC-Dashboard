@@ -1,13 +1,6 @@
-import { Reducer } from 'redux';
 import defaultSettings, { DefaultSettings } from '../../config/defaultSettings';
+import { ModelType } from '@/typings';
 
-export interface SettingModelType {
-  namespace: 'settings';
-  state: DefaultSettings;
-  reducers: {
-    changeSetting: Reducer<DefaultSettings>;
-  };
-}
 
 const updateColorWeak: (colorWeak: boolean) => void = (colorWeak) => {
   const root = document.getElementById('root');
@@ -16,7 +9,7 @@ const updateColorWeak: (colorWeak: boolean) => void = (colorWeak) => {
   }
 };
 
-const SettingModel: SettingModelType = {
+const SettingModel: ModelType<DefaultSettings> = {
   namespace: 'settings',
   state: defaultSettings,
   reducers: {

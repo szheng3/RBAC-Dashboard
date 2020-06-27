@@ -1,9 +1,8 @@
-import { Reducer } from 'redux';
-import { Subscription, Effect } from 'dva';
 
 import { NoticeIconData } from '@/components/NoticeIcon';
 import { queryNotices } from '@/services/user';
 import { ConnectState } from './connect.d';
+import { ModelType } from '@/typings';
 
 export interface NoticeItem extends NoticeIconData {
   id: string;
@@ -16,23 +15,8 @@ export interface GlobalModelState {
   notices: NoticeItem[];
 }
 
-export interface GlobalModelType {
-  namespace: 'global';
-  state: GlobalModelState;
-  effects: {
-    fetchNotices: Effect;
-    clearNotices: Effect;
-    changeNoticeReadState: Effect;
-  };
-  reducers: {
-    changeLayoutCollapsed: Reducer<GlobalModelState>;
-    saveNotices: Reducer<GlobalModelState>;
-    saveClearedNotices: Reducer<GlobalModelState>;
-  };
-  subscriptions: { setup: Subscription };
-}
 
-const GlobalModel: GlobalModelType = {
+const GlobalModel: ModelType<GlobalModelState> = {
   namespace: 'global',
 
   state: {

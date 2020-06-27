@@ -1,3 +1,5 @@
+import { Effect, Reducer,Subscription } from 'umi';
+
 declare module 'slash2';
 declare module '*.css';
 declare module '*.less';
@@ -20,6 +22,7 @@ interface GAFieldsObject {
   eventValue?: number;
   nonInteraction?: boolean;
 }
+
 interface Window {
   ga: (
     command: 'send',
@@ -27,6 +30,18 @@ interface Window {
     fieldsObject: GAFieldsObject | string,
   ) => void;
   reloadAuthorized: () => void;
+}
+
+export interface ModelType<T> {
+  namespace: string;
+  state: T;
+  effects?: {
+    [key: string]: Effect;
+  };
+  reducers?: {
+    [key: string]: Reducer<T>;
+  };
+  subscriptions?: { [key: string]: Subscription }
 }
 
 declare let ga: Function;

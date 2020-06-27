@@ -1,8 +1,6 @@
-import { Effect } from 'dva';
-import { Reducer } from 'redux';
-
 import { queryCurrent, query as queryUsers } from '@/services/user';
 import { TableListItem as RoleData } from '../pages/admin/roles/list/data.d';
+import { ModelType } from '@/typings';
 
 export interface CurrentUser {
   avatar?: string;
@@ -15,18 +13,9 @@ export interface UserModelState {
   currentUser?: CurrentUser;
 }
 
-export interface UserModelType<T> {
-  namespace: 'user';
-  state: T;
-  effects: {
-    [key: string]: Effect;
-  };
-  reducers: {
-    [key: string]: Reducer<UserModelState>;
-  };
-}
 
-const UserModel: UserModelType<UserModelState> = {
+
+const UserModel: ModelType<UserModelState> = {
   namespace: 'user',
 
   state: {

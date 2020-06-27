@@ -9,16 +9,17 @@ import ProLayout, {
   MenuDataItem,
   Settings,
 } from '@ant-design/pro-layout';
-import React, { useEffect, useState } from 'react';
-import { connect, Dispatch, formatMessage, Link } from 'umi';
+import React, { useEffect } from 'react';
+import { Dispatch, formatMessage, Link } from 'umi';
 import { createFromIconfontCN, GithubOutlined } from '@ant-design/icons';
 import { Button, Result } from 'antd';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { ConnectState } from '@/models/connect';
 import { getAuthorityFromRouter, isAntDesignPro } from '@/utils/utils';
-import request from '@/utils/request';
-import logo from '../assets/logo.svg';
+// @ts-ignore
+import logo from '@/assets/logo.svg';
+import { useDispatch, useSelector } from '@@/plugin-dva/exports';
 
 const noMatch = (
   <Result
@@ -65,6 +66,7 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
   menuList.map((item) => {
     const localItem = {
       ...item,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       children: item.children ? menuDataRender(item.children) : [],
     };
     return Authorized.check(item.authority, localItem, null) as MenuDataItem;
@@ -82,7 +84,7 @@ const defaultFooterDom = (
       },
       {
         key: 'github',
-        title: <GithubOutlined />,
+        title: <GithubOutlined/>,
         href: 'https://github.com/ant-design/ant-design-pro',
         blankTarget: true,
       },
@@ -110,7 +112,8 @@ const footerRender: BasicLayoutProps['footerRender'] = () => {
           textAlign: 'center',
         }}
       >
-        <a href="https://www.netlify.com" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.netlify.com" target="_blank"
+           rel="noopener noreferrer">
           <img
             src="https://www.netlify.com/img/global/badges/netlify-color-bg.svg"
             width="82px"
@@ -124,9 +127,7 @@ const footerRender: BasicLayoutProps['footerRender'] = () => {
 
 const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   const {
-    dispatch,
     children,
-    settings,
     location = {
       pathname: '/',
     },
@@ -134,46 +135,25 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   /**
    * constructor
    */
-
-  const [menuData, setMenuData] = useState([]);
+  const dispatch = useDispatch();
+  const { settings, menu, menuLoading } = useSelector(
+    ({ global, settings, menu, loading }: ConnectState) => ({
+      collapsed: global.collapsed,
+      settings,
+      menu:menu.menu,
+      menuLoading: loading.effects['menu/fetch'],
+    }));
 
   useEffect(() => {
     if (dispatch) {
       dispatch({
         type: 'user/fetchCurrent',
       });
+      dispatch({
+        type: 'menu/fetch',
+      });
     }
 
-    async function fetchMenus() {
-      const response = await request('/oauth2/menus/fetch');
-      // console.log(data)
-      // const response =[{
-      //   path:"/admin",
-      //   name:"admin",
-      //   icon:  "icon-java",
-      //   children:[
-      //     {
-      //       path:"/admin/menus",
-      //       name:"menus",
-      //     },
-      //     {
-      //       path:"/admin/permissions",
-      //       name:"permissions"
-      //     },
-      //     {
-      //       path:"/admin/roles",
-      //       name:"roles"
-      //     },
-      //     {
-      //       path:"/admin/users",
-      //       name:"users"
-      //     }
-      //   ]
-      // }]
-      setMenuData(response || []);
-    }
-
-    fetchMenus();
   }, []);
   /**
    * init variables
@@ -188,12 +168,14 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
     }
   }; // get children authority
 
-  const authorized = getAuthorityFromRouter(props.route.routes, location.pathname || '/') || {
+  const authorized = getAuthorityFromRouter(props.route.routes,
+    location.pathname || '/') || {
     authority: undefined,
   };
   return (
     <ProLayout
       logo={logo}
+      loading={menuLoading}
       formatMessage={formatMessage}
       menuHeaderRender={(logoDom, titleDom) => (
         <Link to="/">
@@ -203,7 +185,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
       )}
       onCollapse={handleMenuCollapse}
       menuItemRender={(menuItemProps, defaultDom) => {
-        if (menuItemProps.isUrl || menuItemProps.children || !menuItemProps.path) {
+        if (menuItemProps.isUrl || menuItemProps.children ||
+          !menuItemProps.path) {
           return defaultDom;
         }
 
@@ -225,8 +208,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         );
       }}
       footerRender={footerRender}
-      menuDataRender={() => menuData}
-      rightContentRender={() => <RightContent />}
+      menuDataRender={() => menu as MenuDataItem[]}
+      rightContentRender={() => <RightContent/>}
       {...props}
       {...settings}
     >
@@ -237,7 +220,4 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   );
 };
 
-export default connect(({ global, settings }: ConnectState) => ({
-  collapsed: global.collapsed,
-  settings,
-}))(BasicLayout);
+export default BasicLayout;

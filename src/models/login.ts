@@ -1,5 +1,4 @@
-import { Reducer } from 'redux';
-import { Effect } from 'dva';
+
 import { stringify } from 'querystring';
 import { history } from 'umi';
 
@@ -8,25 +7,14 @@ import { getPageQuery } from '@/utils/utils';
 import { message } from 'antd';
 import { reloadAuthorized } from '@/utils/Authorized';
 import { remove, save } from '@/utils/StorageUtil';
+import { ModelType } from '@/typings';
 
 export interface StateType {
   success?: boolean | null | undefined;
 }
 
-export interface LoginModelType {
-  namespace: string;
-  state: StateType;
-  effects: {
-    login: Effect;
-    getCaptcha: Effect;
-    logout: Effect;
-  };
-  reducers: {
-    changeLoginStatus: Reducer<StateType>;
-  };
-}
 
-const Model: LoginModelType = {
+const Model: ModelType<StateType> = {
   namespace: 'login',
 
   state: {
