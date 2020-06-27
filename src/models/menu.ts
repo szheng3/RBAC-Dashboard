@@ -33,15 +33,16 @@ const MenuModel: ModelType<MenuModelState> = {
     *fetch(_, { call, put }) {
       const response = yield call(queryMenus);
       yield put({
-        type: 'saveCurrentUser',
+        type: 'saveMenu',
         payload: response,
       });
     },
   },
 
   reducers: {
-    saveCurrentUser(state, { payload }) {
+    saveMenu(state, { payload }) {
       state.menu = payload || [];
+      return state
     },
   },
 };
