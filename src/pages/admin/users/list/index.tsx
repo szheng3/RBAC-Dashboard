@@ -43,9 +43,9 @@ const handleUpdate = async (fields: FormValueType) => {
     return true;
   } catch (error) {
     hide();
-    console.log(error)
+    console.log(error);
     // message.error('修改失败请重试！');
-    throw(error)
+    throw error;
     // return false;
   }
 };
@@ -56,7 +56,7 @@ const handleUpdate = async (fields: FormValueType) => {
  */
 const handleRoles = async (fields: RoleFormParams) => {
   const hide = message.loading('正在修改');
-  console.log(fields)
+  console.log(fields);
   try {
     await setRoles({
       userId: fields._id,
@@ -94,7 +94,7 @@ const TableList: React.FC<{}> = () => {
     {
       title: '角色',
       dataIndex: 'roles',
-      renderText: (roles: any[]) => roles.map(({roles}) => roles.name).join(', '),
+      renderText: (roles: any[]) => roles.map(({ roles }) => roles.name).join(', '),
     },
     // {
     //   title: '是否是超级管理员',
@@ -155,8 +155,7 @@ const TableList: React.FC<{}> = () => {
         </Button>
       );
     }
-      return null;
-
+    return null;
   };
 
   return (
@@ -167,11 +166,11 @@ const TableList: React.FC<{}> = () => {
         toolBarRender={(action, { selectedRows }) => [renderCreateButton()]}
         pagination={false}
         search={false}
-        request={params => queryUsers()}
+        request={(params) => queryUsers()}
         columns={columns}
       />
       <CreateForm
-        onSubmit={async value => {
+        onSubmit={async (value) => {
           const success = await handleAdd(value);
           if (success) {
             handleModalVisible(false);
@@ -185,8 +184,7 @@ const TableList: React.FC<{}> = () => {
       />
       {stepFormValues && Object.keys(stepFormValues).length ? (
         <UpdateForm
-          onSubmit={async (value,form) => {
-
+          onSubmit={async (value, form) => {
             try {
               const success = await handleUpdate(value);
               if (success) {
@@ -198,12 +196,10 @@ const TableList: React.FC<{}> = () => {
               }
             } catch (e) {
               form?.setFields(
-                Object.keys(e.data).map((key) =>  ({name:key,errors:[e.data[key]]}))
+                Object.keys(e.data).map((key) => ({ name: key, errors: [e.data[key]] })),
               );
               // console.log(form)
-
             }
-
           }}
           onCancel={() => {
             handleUpdateModalVisible(false);
@@ -216,7 +212,7 @@ const TableList: React.FC<{}> = () => {
 
       {roleFormValues && Object.keys(roleFormValues).length ? (
         <RoleForm
-          onSubmit={async value => {
+          onSubmit={async (value) => {
             const success = await handleRoles(value);
             if (success) {
               handleRoleModalVisible(false);

@@ -10,7 +10,7 @@ import ProLayout, {
   Settings,
 } from '@ant-design/pro-layout';
 import React, { useEffect, useState } from 'react';
-import { connect, formatMessage, Link ,Dispatch} from 'umi';
+import { connect, Dispatch, formatMessage, Link } from 'umi';
 import { createFromIconfontCN, GithubOutlined } from '@ant-design/icons';
 import { Button, Result } from 'antd';
 import Authorized from '@/utils/Authorized';
@@ -33,7 +33,7 @@ const noMatch = (
   />
 );
 
-const IconFont = createFromIconfontCN({
+createFromIconfontCN({
   scriptUrl: [
     '//at.alicdn.com/t/font_1788044_0dwu4guekcwr.js', // icon-javascript, icon-java, icon-shoppingcart (overrided)
     '//at.alicdn.com/t/font_1788592_a5xf2bdic3u.js', // icon-shoppingcart, icon-python
@@ -62,7 +62,7 @@ export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
  */
 
 const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
-  menuList.map(item => {
+  menuList.map((item) => {
     const localItem = {
       ...item,
       children: item.children ? menuDataRender(item.children) : [],
@@ -82,7 +82,7 @@ const defaultFooterDom = (
       },
       {
         key: 'github',
-        title: <GithubOutlined/>,
+        title: <GithubOutlined />,
         href: 'https://github.com/ant-design/ant-design-pro',
         blankTarget: true,
       },
@@ -110,8 +110,7 @@ const footerRender: BasicLayoutProps['footerRender'] = () => {
           textAlign: 'center',
         }}
       >
-        <a href="https://www.netlify.com" target="_blank"
-           rel="noopener noreferrer">
+        <a href="https://www.netlify.com" target="_blank" rel="noopener noreferrer">
           <img
             src="https://www.netlify.com/img/global/badges/netlify-color-bg.svg"
             width="82px"
@@ -123,7 +122,7 @@ const footerRender: BasicLayoutProps['footerRender'] = () => {
   );
 };
 
-const BasicLayout: React.FC<BasicLayoutProps> = props => {
+const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   const {
     dispatch,
     children,
@@ -189,8 +188,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
     }
   }; // get children authority
 
-  const authorized = getAuthorityFromRouter(props.route.routes,
-    location.pathname || '/') || {
+  const authorized = getAuthorityFromRouter(props.route.routes, location.pathname || '/') || {
     authority: undefined,
   };
   return (
@@ -205,8 +203,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       )}
       onCollapse={handleMenuCollapse}
       menuItemRender={(menuItemProps, defaultDom) => {
-        if (menuItemProps.isUrl || menuItemProps.children ||
-          !menuItemProps.path) {
+        if (menuItemProps.isUrl || menuItemProps.children || !menuItemProps.path) {
           return defaultDom;
         }
 
@@ -229,7 +226,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       }}
       footerRender={footerRender}
       menuDataRender={() => menuData}
-      rightContentRender={() => <RightContent/>}
+      rightContentRender={() => <RightContent />}
       {...props}
       {...settings}
     >

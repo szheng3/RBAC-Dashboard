@@ -105,8 +105,7 @@ const request = extend({
   },
 });
 
-const myRequest = (
-  url: string, options: RequestOptionsInit | undefined = {}) => {
+const myRequest = (url: string, options: RequestOptionsInit | undefined = {}) => {
   return request(url, {
     ...options,
     headers: {

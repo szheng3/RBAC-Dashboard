@@ -23,7 +23,7 @@ const formLayout = {
   wrapperCol: { span: 13 },
 };
 
-const UpdateForm: React.FC<UpdateFormProps> = props => {
+const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
     idRoles: props?.values?.roles?.idRoles,
     name: props?.values?.roles?.name,
@@ -47,32 +47,28 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
   };
 
   const renderContent = () => (
-      <>
-        <FormItem
-          name="idRoles"
-          label="标识符"
-          rules={[{ required: true, message: '请输入英文名称！' }]}
-        >
-          <Input disabled placeholder="请输入英文名称！" />
-        </FormItem>
-        <FormItem
-          name="name"
-          label="名称"
-          rules={[{ required: true, message: '请输入中文标识！' }]}
-        >
-          <Input placeholder="请输入中文标识！" />
-        </FormItem>
-      </>
-    );
+    <>
+      <FormItem
+        name="idRoles"
+        label="标识符"
+        rules={[{ required: true, message: '请输入英文名称！' }]}
+      >
+        <Input disabled placeholder="请输入英文名称！" />
+      </FormItem>
+      <FormItem name="name" label="名称" rules={[{ required: true, message: '请输入中文标识！' }]}>
+        <Input placeholder="请输入中文标识！" />
+      </FormItem>
+    </>
+  );
 
   const renderFooter = () => (
-      <>
-        <Button onClick={() => handleUpdateModalVisible(false, values)}>取消</Button>
-        <Button type="primary" onClick={() => handleNext()}>
-          保存
-        </Button>
-      </>
-    );
+    <>
+      <Button onClick={() => handleUpdateModalVisible(false, values)}>取消</Button>
+      <Button type="primary" onClick={() => handleNext()}>
+        保存
+      </Button>
+    </>
+  );
 
   return (
     <Modal

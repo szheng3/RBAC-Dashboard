@@ -27,12 +27,11 @@ const formLayout = {
   wrapperCol: { span: 13 },
 };
 
-const UpdateForm: React.FC<UpdateFormProps> = props => {
+const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
-
     parent: props.values.parent,
     permissionId: props.values?.permissions[0]?._id,
-    menu:props.values.menu
+    menu: props.values.menu,
   });
 
   const [form] = Form.useForm();
@@ -65,28 +64,36 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
     async function getPermissions() {
       const response = await queryPermissions();
       if (response) {
-        setPermissions(response.data)
+        setPermissions(response.data);
       }
     }
 
     getSelectedMenus();
-    getPermissions()
+    getPermissions();
   }, []);
 
   const renderContent = () => {
     return (
       <>
-        <FormItem name={['menu', 'name']} label="名称" rules={[{ required: true, message: '请输入名称！' }]}>
+        <FormItem
+          name={['menu', 'name']}
+          label="名称"
+          rules={[{ required: true, message: '请输入名称！' }]}
+        >
           <Input placeholder="请输入名称！" />
         </FormItem>
         <FormItem label="图标描述" name={['menu', 'icon']}>
           <Input placeholder="请输入图标描述！" />
         </FormItem>
-        <FormItem name={['menu', 'path']} label="路径" rules={[{ required: true, message: '请输入路径！' }]}>
+        <FormItem
+          name={['menu', 'path']}
+          label="路径"
+          rules={[{ required: true, message: '请输入路径！' }]}
+        >
           <Input placeholder="请输入路径！" />
         </FormItem>
 
-        <FormItem  label="权限" name="permissionId">
+        <FormItem label="权限" name="permissionId">
           <Select allowClear placeholder="请选择权限！" style={{ width: '100%' }}>
             {permissions.map((menu: TableListItem) => (
               <Option key={menu._id} value={menu._id}>
@@ -106,7 +113,7 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
           </Select>
         </FormItem>
 
-        <FormItem  name={['menu', 'idMenu']}  label={false}>
+        <FormItem name={['menu', 'idMenu']} label={false}>
           <Input type="hidden" />
         </FormItem>
       </>
@@ -135,11 +142,7 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
       onCancel={() => handleUpdateModalVisible(false, values)}
       afterClose={() => handleUpdateModalVisible()}
     >
-      <Form
-        {...formLayout}
-        form={form}
-        initialValues={formVals}
-      >
+      <Form {...formLayout} form={form} initialValues={formVals}>
         {renderContent()}
       </Form>
     </Modal>

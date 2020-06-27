@@ -1,5 +1,3 @@
-import { ConnectState, UserModelState } from '@/models/connect';
-import { useSelector } from 'dva';
 import { getAuthority } from '@/utils/authority';
 
 const checkPermission = (name: string) => {

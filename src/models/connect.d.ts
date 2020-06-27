@@ -1,4 +1,3 @@
-import { AnyAction } from 'redux';
 import { MenuDataItem } from '@ant-design/pro-layout';
 import { RouterTypes } from 'umi';
 import { GlobalModelState } from './global';
@@ -37,4 +36,12 @@ export interface Route extends MenuDataItem {
  */
 export interface ConnectProps<T = {}> extends Partial<RouterTypes<Route, T>> {
   dispatch?: Dispatch<AnyAction>;
+}
+export interface AnyAction extends Action {
+  // Allows any extra properties to be defined in an action.
+  [extraProps: string]: any;
+}
+
+export interface Action<T = any> {
+  type: T;
 }

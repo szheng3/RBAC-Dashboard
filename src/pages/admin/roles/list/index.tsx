@@ -85,13 +85,13 @@ const TableList: React.FC<{}> = () => {
     {
       title: '名称',
       dataIndex: 'roles',
-      renderText: (roles:any) =>roles.name
+      renderText: (roles: any) => roles.name,
     },
     {
       title: '权限列表',
       dataIndex: 'permissions',
       renderText: (permissions: PermissionData[]) =>
-        permissions.map(permission => permission.name).join(', '),
+        permissions.map((permission) => permission.name).join(', '),
     },
     {
       title: '创建时间',
@@ -147,8 +147,7 @@ const TableList: React.FC<{}> = () => {
         </Button>
       );
     }
-      return null;
-
+    return null;
   };
 
   return (
@@ -159,11 +158,11 @@ const TableList: React.FC<{}> = () => {
         toolBarRender={(action, { selectedRows }) => [renderCreateButton()]}
         pagination={false}
         search={false}
-        request={params => queryRoles()}
+        request={(params) => queryRoles()}
         columns={columns}
       />
       <CreateForm
-        onSubmit={async value => {
+        onSubmit={async (value) => {
           const success = await handleAdd(value);
           if (success) {
             handleModalVisible(false);
@@ -177,7 +176,7 @@ const TableList: React.FC<{}> = () => {
       />
       {stepFormValues && Object.keys(stepFormValues).length ? (
         <UpdateForm
-          onSubmit={async value => {
+          onSubmit={async (value) => {
             const success = await handleUpdate(value);
             if (success) {
               handleUpdateModalVisible(false);
@@ -198,7 +197,7 @@ const TableList: React.FC<{}> = () => {
 
       {permissionFormValues && Object.keys(permissionFormValues).length ? (
         <PermissionForm
-          onSubmit={async value => {
+          onSubmit={async (value) => {
             const success = await handlePermissions(value);
             if (success) {
               handlePermissionModalVisible(false);

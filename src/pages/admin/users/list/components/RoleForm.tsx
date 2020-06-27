@@ -24,7 +24,7 @@ const formLayout = {
   wrapperCol: { span: 13 },
 };
 
-const RoleForm: React.FC<UpdateFormProps> = props => {
+const RoleForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
     _id: props.values.id,
     username: props.values.username,
@@ -35,7 +35,7 @@ const RoleForm: React.FC<UpdateFormProps> = props => {
 
   const [loading, setLoading] = useState<boolean | undefined>(undefined);
   const [defaultRoles] = useState(props.values.roles || []);
-  const [roleIds, setRoleIds] = useState<string[]>(defaultRoles.map(role => role._id));
+  const [roleIds, setRoleIds] = useState<string[]>(defaultRoles.map((role) => role._id));
 
   useEffect(() => {
     setLoading(true);
@@ -43,7 +43,7 @@ const RoleForm: React.FC<UpdateFormProps> = props => {
       if (loading) {
         return;
       }
-      const {  data } = await queryRoles();
+      const { data } = await queryRoles();
       if (data) {
         setRoles(data);
         setLoading(false);
@@ -72,17 +72,16 @@ const RoleForm: React.FC<UpdateFormProps> = props => {
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { checked, id:value } = e.target;
+    const { checked, id: value } = e.target;
 
-    if (checked && roleIds.every(id => id !== value)) {
+    if (checked && roleIds.every((id) => id !== value)) {
       setRoleIds([...roleIds, value]);
     } else {
-      setRoleIds(roleIds.filter(id => id !== value));
+      setRoleIds(roleIds.filter((id) => id !== value));
     }
   };
 
   const renderContent = () => {
-
     // if (loading) {
     //   return <Spin/>;
     // }
@@ -90,17 +89,16 @@ const RoleForm: React.FC<UpdateFormProps> = props => {
     return (
       <Spin spinning={loading}>
         <Row>
-          {roles.map(role => (
+          {roles.map((role) => (
             <Col key={role?._id} span={8}>
               <Checkbox
-                defaultChecked={!!defaultRoles.find(p => p._id === role._id)}
+                defaultChecked={!!defaultRoles.find((p) => p._id === role._id)}
                 onChange={handleCheckboxChange}
                 type="checkbox"
                 id={role?._id}
               >
                 {role?.roles?.name}
               </Checkbox>
-
             </Col>
           ))}
         </Row>
@@ -134,11 +132,7 @@ const RoleForm: React.FC<UpdateFormProps> = props => {
       onCancel={() => handleUpdateModalVisible(false, values)}
       afterClose={() => handleUpdateModalVisible()}
     >
-      <Form
-        {...formLayout}
-        form={form}
-        initialValues={formVals}
-      >
+      <Form {...formLayout} form={form} initialValues={formVals}>
         {renderContent()}
       </Form>
     </Modal>

@@ -28,7 +28,7 @@ const formLayout = {
   wrapperCol: { span: 13 },
 };
 
-const PermissionForm: React.FC<UpdateFormProps> = props => {
+const PermissionForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
     _id: props.values._id,
     name: props.values.name,
@@ -40,7 +40,7 @@ const PermissionForm: React.FC<UpdateFormProps> = props => {
   const [loading, setLoading] = useState<boolean | undefined>(undefined);
   const [defaultPermissions] = useState(props.values.permissions || []);
   const [permissionIds, setPermissionIds] = useState<string[]>(
-    defaultPermissions.map(permission => permission._id),
+    defaultPermissions.map((permission) => permission._id),
   );
 
   useEffect(() => {
@@ -56,7 +56,6 @@ const PermissionForm: React.FC<UpdateFormProps> = props => {
         setLoading(false);
       }
       setLoading(false);
-
     }
 
     getPermissions();
@@ -82,57 +81,56 @@ const PermissionForm: React.FC<UpdateFormProps> = props => {
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { checked, id:value } = e.target;
+    const { checked, id: value } = e.target;
 
-    if (checked && permissionIds.every(id => id !== value)) {
+    if (checked && permissionIds.every((id) => id !== value)) {
       setPermissionIds([...permissionIds, value]);
     } else {
-      setPermissionIds(permissionIds.filter(id => id !== value));
+      setPermissionIds(permissionIds.filter((id) => id !== value));
     }
   };
 
   const renderContent = () => {
-    const permissionsByGroup = groupBy(permissions,
-      (permission: PermissionData) => permission.name.split(' ').slice()[0]);
+    const permissionsByGroup = groupBy(
+      permissions,
+      (permission: PermissionData) => permission.name.split(' ').slice()[0],
+    );
 
     return (
       <Spin spinning={loading}>
-        {keys(permissionsByGroup).map(name => (
+        {keys(permissionsByGroup).map((name) => (
           <div key={name}>
-            <Divider  orientation="left" plain>{name}</Divider>
+            <Divider orientation="left" plain>
+              {name}
+            </Divider>
             <Row>
-              {permissionsByGroup[name].map(permission => (
+              {permissionsByGroup[name].map((permission) => (
                 <Col key={permission._id} span={8}>
-
                   <Checkbox
-                    defaultChecked={!!defaultPermissions.find(
-                      p => p._id === permission._id)}
+                    defaultChecked={!!defaultPermissions.find((p) => p._id === permission._id)}
                     onChange={handleCheckboxChange}
                     type="checkbox"
                     id={permission._id}
                   >
                     {permission.name}
                   </Checkbox>
-
                 </Col>
               ))}
             </Row>
-            <br/>
+            <br />
           </div>
         ))}
         <FormItem name="_id" label={false}>
-          <Input type="hidden"/>
+          <Input type="hidden" />
         </FormItem>
       </Spin>
     );
-
   };
 
   const renderFooter = () => {
     return (
       <>
-        <Button
-          onClick={() => handleUpdateModalVisible(false, values)}>取消</Button>
+        <Button onClick={() => handleUpdateModalVisible(false, values)}>取消</Button>
         <Button type="primary" onClick={() => handleNext()}>
           保存
         </Button>

@@ -12,7 +12,7 @@ const NoFoundPage: React.FC<{}> = () => (
         Back Home
       </Button>
     }
-   />
+  />
 );
 
 export default NoFoundPage;

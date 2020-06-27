@@ -14,7 +14,7 @@ interface CreateFormProps {
   onCancel: () => void;
 }
 
-const CreateForm: React.FC<CreateFormProps> = props => {
+const CreateForm: React.FC<CreateFormProps> = (props) => {
   const [form] = Form.useForm();
 
   const { modalVisible, onSubmit: handleAdd, onCancel } = props;
@@ -37,8 +37,8 @@ const CreateForm: React.FC<CreateFormProps> = props => {
     async function getPermissions() {
       const response = await queryPermissions();
       if (response) {
-        console.log(response)
-        setPermissions(response.data)
+        console.log(response);
+        setPermissions(response.data);
       }
     }
 
@@ -64,7 +64,12 @@ const CreateForm: React.FC<CreateFormProps> = props => {
         >
           <Input placeholder="请输入图标！" />
         </FormItem>
-        <FormItem  labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="中文描述" name={['menu', 'icon']}>
+        <FormItem
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 15 }}
+          label="中文描述"
+          name={['menu', 'icon']}
+        >
           <Input placeholder="请输入图标名称！" />
         </FormItem>
         <FormItem
@@ -87,7 +92,12 @@ const CreateForm: React.FC<CreateFormProps> = props => {
           </Select>
         </FormItem>
 
-        <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="父类菜单" name={['menu', 'idParent']}>
+        <FormItem
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 15 }}
+          label="父类菜单"
+          name={['menu', 'idParent']}
+        >
           <Select allowClear placeholder="请选择父类菜单！" style={{ width: '100%' }}>
             {menus.map((menu: TableListItem) => (
               <Option key={menu.idMenu} value={menu.idMenu}>

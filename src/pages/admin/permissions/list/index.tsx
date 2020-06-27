@@ -104,8 +104,7 @@ const TableList: React.FC<{}> = () => {
         </Button>
       );
     }
-      return null;
-
+    return null;
   };
 
   return (
@@ -116,11 +115,11 @@ const TableList: React.FC<{}> = () => {
         toolBarRender={(action, { selectedRows }) => [renderCreateButton()]}
         pagination={{ defaultPageSize: 8 }}
         search={false}
-        request={params => queryPermissions(params)}
+        request={(params) => queryPermissions(params)}
         columns={columns}
       />
       <CreateForm
-        onSubmit={async value => {
+        onSubmit={async (value) => {
           const success = await handleAdd(value);
           if (success) {
             handleModalVisible(false);
@@ -134,7 +133,7 @@ const TableList: React.FC<{}> = () => {
       />
       {stepFormValues && Object.keys(stepFormValues).length ? (
         <UpdateForm
-          onSubmit={async value => {
+          onSubmit={async (value) => {
             const success = await handleUpdate(value);
             if (success) {
               handleUpdateModalVisible(false);

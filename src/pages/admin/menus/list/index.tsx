@@ -49,8 +49,7 @@ const handleUpdate = async (fields: UpdateParams) => {
 
 const TableList: React.FC<{}> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
-  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(
-    false);
+  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
   const [stepFormValues, setStepFormValues] = useState({});
   const actionRef = useRef<ActionType>();
   const columns: ProColumns<TableListItem>[] = [
@@ -62,13 +61,11 @@ const TableList: React.FC<{}> = () => {
       title: '中文描述',
       dataIndex: 'menu',
       renderText: (menu: any) => menu?.name,
-
     },
     {
       title: '图标',
       dataIndex: 'menu',
       renderText: (menu: any) => menu?.icon,
-
     },
     {
       title: '路径',
@@ -78,7 +75,7 @@ const TableList: React.FC<{}> = () => {
     {
       title: '权限',
       dataIndex: 'permissions',
-      renderText: (menu: any[]) => menu?.map(({ name }) => name).join(", "),
+      renderText: (menu: any[]) => menu?.map(({ name }) => name).join(', '),
     },
     {
       title: '父类菜单',
@@ -121,12 +118,11 @@ const TableList: React.FC<{}> = () => {
     if (checkPermission('MENU_WRITE')) {
       return (
         <Button type="primary" onClick={() => handleModalVisible(true)}>
-          <PlusOutlined/> 新建
+          <PlusOutlined /> 新建
         </Button>
       );
     }
-      return null;
-
+    return null;
   };
 
   return (
@@ -137,11 +133,11 @@ const TableList: React.FC<{}> = () => {
         toolBarRender={(action, { selectedRows }) => [renderCreateButton()]}
         pagination={{ defaultPageSize: 8 }}
         search={false}
-        request={params => queryMenus(params)}
+        request={(params) => queryMenus(params)}
         columns={columns}
       />
       <CreateForm
-        onSubmit={async value => {
+        onSubmit={async (value) => {
           const success = await handleAdd(value);
           if (success) {
             handleModalVisible(false);
@@ -155,7 +151,7 @@ const TableList: React.FC<{}> = () => {
       />
       {stepFormValues && Object.keys(stepFormValues).length ? (
         <UpdateForm
-          onSubmit={async value => {
+          onSubmit={async (value) => {
             const success = await handleUpdate(value);
             if (success) {
               handleUpdateModalVisible(false);

@@ -34,7 +34,7 @@ const Model: LoginModelType = {
   },
 
   effects: {
-    * login({ payload }, { call, put }) {
+    *login({ payload }, { call, put }) {
       try {
         const response = yield call(fakeAccountLogin, payload);
 
@@ -78,12 +78,12 @@ const Model: LoginModelType = {
       }
     },
 
-    * getCaptcha({ payload }, { call }) {
+    *getCaptcha({ payload }, { call }) {
       yield call(getFakeCaptcha, payload);
     },
 
     logout() {
-      console.log("logout")
+      console.log('logout');
       const { redirect } = getPageQuery();
       // Note: There may be security issues, please note
       if (window.location.pathname !== '/user/login' && !redirect) {

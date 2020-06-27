@@ -1,4 +1,3 @@
-
 import jwtDecode from 'jwt-decode';
 import { get } from '@/utils/StorageUtil';
 import { reloadAuthorized } from './Authorized';
@@ -23,8 +22,7 @@ export function getAuthority(str?: string): string[] {
     return [authority];
   }
 
-  if (!authority && ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION ===
-    'site') {
+  if (!authority && ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site') {
     return ['admin'];
   }
 

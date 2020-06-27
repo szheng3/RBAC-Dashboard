@@ -23,7 +23,7 @@ const formLayout = {
   wrapperCol: { span: 13 },
 };
 
-const UpdateForm: React.FC<UpdateFormProps> = props => {
+const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
     id: props.values.id,
     username: props.values.users.name,
@@ -43,7 +43,7 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
     const fieldsValue = await form.validateFields();
     setFormVals({ ...formVals, ...fieldsValue });
 
-    handleUpdate(fieldsValue,form);
+    handleUpdate(fieldsValue, form);
   };
 
   const renderContent = () => {
@@ -63,10 +63,7 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
         >
           <Input placeholder="请输入" />
         </FormItem>
-        <FormItem
-          name="password"
-          label="密码"
-        >
+        <FormItem name="password" label="密码">
           <Input placeholder="请输入" />
         </FormItem>
         <FormItem name="id" label={false}>
@@ -98,11 +95,7 @@ const UpdateForm: React.FC<UpdateFormProps> = props => {
       onCancel={() => handleUpdateModalVisible(false, values)}
       afterClose={() => handleUpdateModalVisible()}
     >
-      <Form
-        {...formLayout}
-        form={form}
-        initialValues={formVals}
-      >
+      <Form {...formLayout} form={form} initialValues={formVals}>
         {renderContent()}
       </Form>
     </Modal>
