@@ -49,8 +49,7 @@ const handleUpdate = async (fields: UpdateParams) => {
 
 const TableList: React.FC<{}> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
-  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(
-    false);
+  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
   const [stepFormValues, setStepFormValues] = useState({});
   const actionRef = useRef<ActionType>();
   const columns: ProColumns<TableListItem>[] = [
@@ -119,7 +118,7 @@ const TableList: React.FC<{}> = () => {
     if (checkPermission('MENU_WRITE')) {
       return (
         <Button type="primary" onClick={() => handleModalVisible(true)}>
-          <PlusOutlined/> 新建
+          <PlusOutlined /> 新建
         </Button>
       );
     }
@@ -153,13 +152,11 @@ const TableList: React.FC<{}> = () => {
       {stepFormValues && Object.keys(stepFormValues).length ? (
         <UpdateForm
           onSubmit={() => {
-
             handleUpdateModalVisible(false);
             setStepFormValues({});
             if (actionRef.current) {
               actionRef.current.reload();
             }
-
           }}
           onCancel={() => {
             handleUpdateModalVisible(false);

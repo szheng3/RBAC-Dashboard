@@ -52,7 +52,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
     const fieldsValue = await form.validateFields();
 
     setFormVals({ ...formVals, ...fieldsValue });
-    run(fieldsValue)
+    run(fieldsValue);
   };
   if (data) {
     handleUpdate();
@@ -66,17 +66,17 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           label="名称"
           rules={[{ required: true, message: '请输入名称！' }]}
         >
-          <Input placeholder="请输入名称！"/>
+          <Input placeholder="请输入名称！" />
         </FormItem>
         <FormItem label="图标描述" name={['menu', 'icon']}>
-          <Input placeholder="请输入图标描述！"/>
+          <Input placeholder="请输入图标描述！" />
         </FormItem>
         <FormItem
           name={['menu', 'path']}
           label="路径"
           rules={[{ required: true, message: '请输入路径！' }]}
         >
-          <Input placeholder="请输入路径！"/>
+          <Input placeholder="请输入路径！" />
         </FormItem>
 
         <FormItem label="权限" name="permissionId">
@@ -100,7 +100,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         </FormItem>
 
         <FormItem name={['menu', 'idMenu']} label={false}>
-          <Input type="hidden"/>
+          <Input type="hidden" />
         </FormItem>
       </Spin>
     );
@@ -109,12 +109,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const renderFooter = () => {
     return (
       <>
-        <Button
-          onClick={() => handleUpdateModalVisible(false, values)}>取消</Button>
-        <Button
-          type="primary" onClick={() => handleNext()}
-          loading={isPending}
-        >
+        <Button onClick={() => handleUpdateModalVisible(false, values)}>取消</Button>
+        <Button type="primary" onClick={() => handleNext()} loading={isPending}>
           保存
         </Button>
       </>

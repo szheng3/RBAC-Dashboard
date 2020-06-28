@@ -29,7 +29,7 @@ export async function updateMenuAsync([params]: any) {
   return request(`/oauth2/menus`, {
     method: 'POST',
     data: {
-      ...params as UpdateParams,
+      ...(params as UpdateParams),
     },
   });
 }
