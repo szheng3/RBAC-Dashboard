@@ -44,7 +44,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
             name={['menu', 'name']}
             rules={[{ required: true, message: '请输入名称！' }]}
           >
-            <Input placeholder="请输入图标！"/>
+            <Input placeholder="请输入图标！" />
           </FormItem>
           <FormItem
             labelCol={{ span: 5 }}
@@ -52,7 +52,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
             label="中文描述"
             name={['menu', 'icon']}
           >
-            <Input placeholder="请输入图标名称！"/>
+            <Input placeholder="请输入图标名称！" />
           </FormItem>
           <FormItem
             labelCol={{ span: 5 }}
@@ -61,11 +61,15 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
             name={['menu', 'path']}
             rules={[{ required: true, message: '请输入路径！' }]}
           >
-            <Input placeholder="请输入路径！"/>
+            <Input placeholder="请输入路径！" />
           </FormItem>
 
-          <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="权限"
-                    name="permissionId">
+          <FormItem
+            labelCol={{ span: 5 }}
+            wrapperCol={{ span: 15 }}
+            label="权限"
+            name="permissionId"
+          >
             <Select allowClear placeholder="请选择权限！" style={{ width: '100%' }}>
               {permissions?.data?.map((menu: TableListItem) => (
                 <Option key={menu._id} value={menu._id}>
@@ -91,7 +95,6 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
           </FormItem>
         </Form>
       </Spin>
-
     </Modal>
   );
 };

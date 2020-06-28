@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Modal, Select, Spin } from 'antd';
 import request from '@/utils/request';
-import { TableListItem, UpdateParams } from '../data.d';
+import { TableListItem } from '../data.d';
 import useSWR from 'swr';
+import { useAsync } from 'react-async';
+import { updateMenu, updateMenuAsync } from '@/pages/admin/menus/list/service';
 
 export interface FormValueType extends Partial<TableListItem> {}
 
 export interface UpdateFormProps {
   onCancel: (flag?: boolean, formVals?: FormValueType) => void;
-  onSubmit: (values: UpdateParams) => void;
+  onSubmit: () => void;
   updateModalVisible: boolean;
   values: Partial<TableListItem>;
 }
@@ -35,6 +37,9 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   });
 
   const [form] = Form.useForm();
+  const { data: menus } = useSWR('/oauth2/selectMenus', request);
+  const { data: permissions } = useSWR('/oauth2/permissions', request);
+  const { data, error, isPending, run } = useAsync({ deferFn: updateMenuAsync });
 
   const {
     onSubmit: handleUpdate,
@@ -47,17 +52,15 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
     const fieldsValue = await form.validateFields();
 
     setFormVals({ ...formVals, ...fieldsValue });
-
-    handleUpdate(fieldsValue as UpdateParams);
+    run(fieldsValue)
   };
-
-  const { data: menus } = useSWR('/oauth2/selectMenus', request);
-  const { data: permissions } = useSWR('/oauth2/permissions', request);
+  if (data) {
+    handleUpdate();
+  }
 
   const renderContent = () => {
     return (
       <Spin spinning={!menus || !permissions}>
-
         <FormItem
           name={['menu', 'name']}
           label="名称"
@@ -108,7 +111,10 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
       <>
         <Button
           onClick={() => handleUpdateModalVisible(false, values)}>取消</Button>
-        <Button type="primary" onClick={() => handleNext()}>
+        <Button
+          type="primary" onClick={() => handleNext()}
+          loading={isPending}
+        >
           保存
         </Button>
       </>

@@ -1,5 +1,5 @@
 import request from '@/utils/request';
-import { TableListParams, CreateParams, UpdateParams } from './data.d';
+import { CreateParams, TableListParams, UpdateParams } from './data.d';
 
 export async function queryMenus(params?: TableListParams) {
   return request('/oauth2/menus', {
@@ -21,6 +21,15 @@ export async function updateMenu(params: UpdateParams) {
     method: 'POST',
     data: {
       ...params,
+    },
+  });
+}
+
+export async function updateMenuAsync([params]: any) {
+  return request(`/oauth2/menus`, {
+    method: 'POST',
+    data: {
+      ...params as UpdateParams,
     },
   });
 }
