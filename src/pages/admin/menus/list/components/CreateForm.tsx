@@ -3,6 +3,8 @@ import { Form, Input, Modal, Select, Spin } from 'antd';
 import request from '@/utils/request';
 import { CreateParams, TableListItem } from '../data.d';
 import useSWR from 'swr';
+import { useAsync } from 'react-async';
+import { updateMenuAsync } from '@/pages/admin/menus/list/service';
 
 const FormItem = Form.Item;
 
@@ -10,7 +12,7 @@ const { Option } = Select;
 
 interface CreateFormProps {
   modalVisible: boolean;
-  onSubmit: (fieldsValue: CreateParams) => void;
+  onSubmit: () => void;
   onCancel: () => void;
 }
 
@@ -18,21 +20,26 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
   const [form] = Form.useForm();
 
   const { modalVisible, onSubmit: handleAdd, onCancel } = props;
-  const okHandle = async () => {
-    const fieldsValue = (await form.validateFields()) as CreateParams;
-    form.resetFields();
-    handleAdd(fieldsValue);
-  };
+
 
   const { data: menus } = useSWR('/oauth2/selectMenus', request);
   const { data: permissions } = useSWR('/oauth2/permissions', request);
-
+  const { data, error, isPending, run } = useAsync({ deferFn: updateMenuAsync });
+  if (data) {
+    handleAdd();
+  }
+  const okHandle = async () => {
+    const fieldsValue = (await form.validateFields()) as CreateParams;
+    // form.resetFields();
+    run(fieldsValue)
+  };
   return (
     <Modal
       destroyOnClose
       title="新建菜单"
       visible={modalVisible}
       onOk={okHandle}
+      confirmLoading={isPending}
       onCancel={() => onCancel()}
     >
       <Spin spinning={!menus || !permissions}>

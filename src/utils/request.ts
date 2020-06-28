@@ -68,7 +68,7 @@ const errorHandler = (error: { response: Response }): Response | void => {
     getDvaApp()?._store?.dispatch({
       type: 'login/logout',
     });
-    // window.location.reload();
+    window.location.reload();
     // return;
   }
 
