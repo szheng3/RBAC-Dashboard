@@ -5,6 +5,7 @@
 import { extend, RequestOptionsInit } from 'umi-request';
 import { notification } from 'antd';
 import { get } from '@/utils/StorageUtil';
+import { getDvaApp } from 'umi';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -27,66 +28,65 @@ const codeMessage = {
 /**
  * 异常处理程序
  */
-const errorHandler = (error: { response: Response }): Response => {
-  const { response } = error;
-  if (response && response.status) {
-    const errorText = codeMessage[response.status] || response.statusText;
-    const { status, url } = response;
-
-    notification.error({
-      message: `请求错误 ${status}: ${url}`,
-      description: errorText,
-    });
-  } else if (!response) {
-    notification.error({
-      description: '您的网络发生异常，无法连接服务器',
-      message: '网络异常',
-    });
-  }
-  return response;
-};
-// const errorHandler = (error: { response: Response }): Response | void => {
+// const errorHandler = (error: { response: Response }): Response => {
 //   const { response } = error;
-//   const { status, url, statusText } = response;
+//   if (response && response.status) {
+//     const errorText = codeMessage[response.status] || response.statusText;
+//     const { status, url } = response;
 //
-//   if (response && status >= 200 && status < 300) {
-//     return response;
-//   }
-//
-//   const errorText = codeMessage[status] || statusText;
-//
-//   notification.error({
-//     message: `请求错误 ${status}: ${url}`,
-//     description: JSON.stringify(error.data),
-//   });
-//
-//   if (status === 401) {
 //     notification.error({
-//       message: '未登录或登录已过期，请重新登录。',
+//       message: `请求错误 ${status}: ${url}`,
+//       description: errorText,
 //     });
-//
-//     // (<any>window)?.g_app?._store?.dispatch({
-//     //   type: 'login/logout',
-//     // });
-//     // window.location.reload();
-//     // return;
+//   } else if (!response) {
+//     notification.error({
+//       description: '您的网络发生异常，无法连接服务器',
+//       message: '网络异常',
+//     });
 //   }
-//
-//   if (status === 403) {
-//     history.push('/exception/403');
-//     return;
-//   }
-//
-//   if (status === 500) {
-//     history.push('/exception/500');
-//     return;
-//   }
-//
-//   const myError: any = new Error(errorText);
-//   myError.name = response.status;
-//   myError.response = response;
-//   throw error;
+//   return response;
 // };
+const errorHandler = (error: { response: Response }): Response | void => {
+  const { response } = error;
+  const { status, url, statusText } = response;
+
+  if (response && status >= 200 && status < 300) {
+    return response;
+  }
+
+  const errorText = codeMessage[status] || statusText;
+
+  notification.error({
+    message: `请求错误 ${status}: ${url}`,
+    description: JSON.stringify(error.data),
+  });
+
+  if (status === 401) {
+    // notification.error({
+    //   message: '未登录或登录已过期，请重新登录。',
+    // });
+    getDvaApp()?._store?.dispatch({
+      type: 'login/logout',
+    });
+    // window.location.reload();
+    // return;
+  }
+
+  if (status === 403) {
+    history.push('/exception/403');
+    return;
+  }
+
+  if (status === 500) {
+    history.push('/exception/500');
+    return;
+  }
+
+  const myError: any = new Error(errorText);
+  myError.name = response.status;
+  myError.response = response;
+  throw error;
+};
 
 export const DOMAIN =
   process.env.NODE_ENV === 'production'
@@ -98,7 +98,7 @@ export const DOMAIN =
  */
 const request = extend({
   errorHandler, // 默认错误处理
-  credentials: 'same-origin', // 默认请求是否带上cookie
+  credentials: 'include', // 默认请求是否带上cookie
   prefix: `${DOMAIN}`,
   headers: {
     Authorization: `Bearer ${get('sso')}`,

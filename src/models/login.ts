@@ -24,14 +24,13 @@ const Model: ModelType<StateType> = {
       try {
         const response = yield call(fakeAccountLogin, payload);
 
-        console.log(response.accessToken);
+        console.log(response)
         yield put({
           type: 'changeLoginStatus',
           payload: response,
         });
 
-        // Login successfully
-        if (response) {
+        if (response?.accessToken) {
           const urlParams = new URL(window.location.href);
           const params = getPageQuery();
           let { redirect } = params as { redirect: string };
@@ -55,7 +54,7 @@ const Model: ModelType<StateType> = {
           history.replace(redirect || '/');
         }
       } catch (e) {
-        message.error(e.data.message);
+        // message.error(e.data.message);
 
         yield put({
           type: 'changeLoginStatus',
@@ -90,7 +89,7 @@ const Model: ModelType<StateType> = {
       // setAuthority(payload.currentAuthority);
       return {
         ...state,
-        success: payload.success,
+        success: payload?.success,
       };
     },
   },

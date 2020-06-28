@@ -56,7 +56,6 @@
     "@ant-design/pro-table": "2.3.5",
     "antd": "4.3.4",
     "classnames": "^2.2.6",
-    "dva": "^2.4.1",
     "js-cookie": "^2.2.1",
     "lodash": "^4.17.11",
     "moment": "^2.25.3",
@@ -66,6 +65,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet-async": "^1.0.4",
+    "react-redux": "^7.2.0",
     "umi": "^3.1.2",
     "umi-request": "^1.0.8",
     "use-merge-value": "^1.0.1"

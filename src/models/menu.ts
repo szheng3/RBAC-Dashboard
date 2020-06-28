@@ -42,7 +42,7 @@ const MenuModel: ModelType<MenuModelState> = {
   reducers: {
     saveMenu(state, { payload }) {
       state.menu = payload || [];
-      return state
+      return state;
     },
   },
 };
