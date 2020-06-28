@@ -24,7 +24,7 @@ const Model: ModelType<StateType> = {
       try {
         const response = yield call(fakeAccountLogin, payload);
 
-        console.log(response)
+        console.log(response);
         yield put({
           type: 'changeLoginStatus',
           payload: response,

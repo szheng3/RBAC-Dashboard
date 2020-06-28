@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Button, Input, Modal, Select } from 'antd';
+import React, { useState } from 'react';
+import { Button, Form, Input, Modal, Select, Spin } from 'antd';
 import request from '@/utils/request';
-
-import { queryPermissions } from '@/pages/admin/permissions/list/service';
 import { TableListItem, UpdateParams } from '../data.d';
+import useSWR from 'swr';
 
 export interface FormValueType extends Partial<TableListItem> {}
 
@@ -13,6 +12,7 @@ export interface UpdateFormProps {
   updateModalVisible: boolean;
   values: Partial<TableListItem>;
 }
+
 const FormItem = Form.Item;
 
 const { Option } = Select;
@@ -51,51 +51,34 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
     handleUpdate(fieldsValue as UpdateParams);
   };
 
-  const [menus, setMenus] = useState([]);
-  const [permissions, setPermissions] = useState([]);
-
-  useEffect(() => {
-    async function getSelectedMenus() {
-      const response = await request('/oauth2/selectMenus');
-      if (response) {
-        setMenus(response);
-      }
-    }
-    async function getPermissions() {
-      const response = await queryPermissions();
-      if (response) {
-        setPermissions(response.data);
-      }
-    }
-
-    getSelectedMenus();
-    getPermissions();
-  }, []);
+  const { data: menus } = useSWR('/oauth2/selectMenus', request);
+  const { data: permissions } = useSWR('/oauth2/permissions', request);
 
   const renderContent = () => {
     return (
-      <>
+      <Spin spinning={!menus || !permissions}>
+
         <FormItem
           name={['menu', 'name']}
           label="名称"
           rules={[{ required: true, message: '请输入名称！' }]}
         >
-          <Input placeholder="请输入名称！" />
+          <Input placeholder="请输入名称！"/>
         </FormItem>
         <FormItem label="图标描述" name={['menu', 'icon']}>
-          <Input placeholder="请输入图标描述！" />
+          <Input placeholder="请输入图标描述！"/>
         </FormItem>
         <FormItem
           name={['menu', 'path']}
           label="路径"
           rules={[{ required: true, message: '请输入路径！' }]}
         >
-          <Input placeholder="请输入路径！" />
+          <Input placeholder="请输入路径！"/>
         </FormItem>
 
         <FormItem label="权限" name="permissionId">
           <Select allowClear placeholder="请选择权限！" style={{ width: '100%' }}>
-            {permissions.map((menu: TableListItem) => (
+            {permissions?.data?.map((menu: TableListItem) => (
               <Option key={menu._id} value={menu._id}>
                 {menu.name}
               </Option>
@@ -105,7 +88,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
 
         <FormItem label="父类菜单" name={['menu', 'idParent']}>
           <Select allowClear placeholder="请选择父类菜单！" style={{ width: '100%' }}>
-            {menus.map((menu: TableListItem) => (
+            {menus?.map((menu: TableListItem) => (
               <Option key={menu.idMenu} value={menu.idMenu}>
                 {menu.name}
               </Option>
@@ -114,16 +97,17 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         </FormItem>
 
         <FormItem name={['menu', 'idMenu']} label={false}>
-          <Input type="hidden" />
+          <Input type="hidden"/>
         </FormItem>
-      </>
+      </Spin>
     );
   };
 
   const renderFooter = () => {
     return (
       <>
-        <Button onClick={() => handleUpdateModalVisible(false, values)}>取消</Button>
+        <Button
+          onClick={() => handleUpdateModalVisible(false, values)}>取消</Button>
         <Button type="primary" onClick={() => handleNext()}>
           保存
         </Button>

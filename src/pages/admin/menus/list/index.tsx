@@ -15,15 +15,15 @@ import { addMenu, queryMenus, updateMenu } from './service';
  * @param fields
  */
 const handleAdd = async (fields: CreateParams) => {
-  const hide = message.loading('正在添加');
+  const hide = message.loading('loading');
   try {
     await addMenu(fields);
     hide();
-    message.success('添加成功');
+    message.success('success');
     return true;
   } catch (error) {
     hide();
-    message.error('添加失败请重试！');
+    message.error('fail');
     return false;
   }
 };
