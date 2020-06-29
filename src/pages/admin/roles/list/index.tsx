@@ -1,14 +1,14 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Divider, message } from 'antd';
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
+import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
 import moment from 'moment';
 import checkPermission from '@/utils/checkPermission';
 import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
-import { TableListItem, CreateParams, PermissionFormParams } from './data.d';
-import { queryRoles, updateRole, addRole, setPermissions } from './service';
+import { CreateParams, PermissionFormParams, TableListItem } from './data.d';
+import { addRole, queryRoles, setPermissions, updateRole } from './service';
 import PermissionForm from './components/PermissionForm';
 import { TableListItem as PermissionData } from '../../permissions/list/data.d';
 
@@ -72,8 +72,10 @@ const handlePermissions = async (fields: PermissionFormParams) => {
 
 const TableList: React.FC<{}> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
-  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
-  const [permissionModalVisible, handlePermissionModalVisible] = useState<boolean>(false);
+  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(
+    false);
+  const [permissionModalVisible, handlePermissionModalVisible] = useState<boolean>(
+    false);
   const [stepFormValues, setStepFormValues] = useState({});
   const [permissionFormValues, setPermissionFormValues] = useState({});
   const actionRef = useRef<ActionType>();
@@ -96,13 +98,20 @@ const TableList: React.FC<{}> = () => {
     {
       title: '创建时间',
       dataIndex: 'roles',
-      renderText: (roles: any) => moment(roles.createDate).fromNow(),
+      renderText: (val: any) => {
+
+        return moment(moment.utc(val?.createDate).toDate()).
+          local(true).
+          format('YYYY-MM-DD');
+      },
+
     },
     {
       title: '更新时间',
       dataIndex: 'roles',
-      valueType: 'dateTime',
-      renderText: (roles: any) => roles.updateDate,
+      renderText: (val: any) => moment(moment.utc(val?.updateDate).toDate()).
+        local(true).
+        fromNow(),
     },
     {
       title: '操作',
@@ -123,7 +132,7 @@ const TableList: React.FC<{}> = () => {
 
           {checkPermission('ROLES_WRITE') ? (
             <>
-              <Divider type="vertical" />
+              <Divider type="vertical"/>
               <a
                 onClick={() => {
                   handlePermissionModalVisible(true);
@@ -143,7 +152,7 @@ const TableList: React.FC<{}> = () => {
     if (checkPermission('ROLES_WRITE')) {
       return (
         <Button type="primary" onClick={() => handleModalVisible(true)}>
-          <PlusOutlined /> 新建
+          <PlusOutlined/> 新建
         </Button>
       );
     }

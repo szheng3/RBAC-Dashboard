@@ -86,13 +86,17 @@ const TableList: React.FC<{}> = () => {
     {
       title: '创建时间',
       dataIndex: 'menu',
-      renderText: (val: any) => moment(val?.createDate).fromNow(),
+      renderText: (val: any) => {
+        return moment(moment.utc(val?.createDate).toDate()).
+          local(true).
+          fromNow()
+        // return moment(moment.utc(val?.createDate).toDate()).local(true).format('YYYY-MM-DD')},
+      }
     },
     {
       title: '更新时间',
       dataIndex: 'menu',
-      valueType: 'dateTime',
-      renderText: (val: any) => val?.updateDate,
+      renderText: (val: any) => moment(moment.utc(val?.updateDate).toDate()).local(true).fromNow() ,
     },
     {
       title: '操作',

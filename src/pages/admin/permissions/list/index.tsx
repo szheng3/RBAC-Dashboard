@@ -1,14 +1,14 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, message } from 'antd';
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
+import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
 import moment from 'moment';
 import checkPermission from '@/utils/checkPermission';
 import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
-import { TableListItem, CreateParams } from './data.d';
-import { queryPermissions, updatePermission, addPermission } from './service';
+import { CreateParams, TableListItem } from './data.d';
+import { addPermission, queryPermissions, updatePermission } from './service';
 
 /**
  * 添加节点
@@ -53,7 +53,8 @@ const handleUpdate = async (fields: FormValueType) => {
 
 const TableList: React.FC<{}> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
-  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
+  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(
+    false);
   const [stepFormValues, setStepFormValues] = useState({});
   const actionRef = useRef<ActionType>();
   const columns: ProColumns<TableListItem>[] = [
@@ -65,15 +66,24 @@ const TableList: React.FC<{}> = () => {
       title: '名称',
       dataIndex: 'name',
     },
+
     {
       title: '创建时间',
       dataIndex: 'createDate',
-      renderText: (val: string) => moment(val).fromNow(),
+      renderText: (val: any) => {
+
+        return moment(moment.utc(val).toDate()).
+          local(true).
+          format('YYYY-MM-DD');
+      },
+
     },
     {
       title: '更新时间',
       dataIndex: 'updateDate',
-      valueType: 'dateTime',
+      renderText: (val: any) => moment(moment.utc(val).toDate()).
+        local(true).
+        fromNow(),
     },
     {
       title: '操作',
@@ -100,7 +110,7 @@ const TableList: React.FC<{}> = () => {
     if (checkPermission('PERMISSION_WRITE')) {
       return (
         <Button type="primary" onClick={() => handleModalVisible(true)}>
-          <PlusOutlined /> 新建
+          <PlusOutlined/> 新建
         </Button>
       );
     }

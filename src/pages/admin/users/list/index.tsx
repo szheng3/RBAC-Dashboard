@@ -1,15 +1,15 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Divider, message } from 'antd';
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
+import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
 import moment from 'moment';
 import checkPermission from '@/utils/checkPermission';
 import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
 import RoleForm from './components/RoleForm';
-import { TableListItem, CreateParams, RoleFormParams } from './data.d';
-import { queryUsers, updateUser, addUser, setRoles } from './service';
+import { CreateParams, RoleFormParams, TableListItem } from './data.d';
+import { addUser, queryUsers, setRoles, updateUser } from './service';
 
 /**
  * 添加员工
@@ -75,7 +75,8 @@ const handleRoles = async (fields: RoleFormParams) => {
 
 const TableList: React.FC<{}> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
-  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
+  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(
+    false);
   const [roleModalVisible, handleRoleModalVisible] = useState<boolean>(false);
   const [stepFormValues, setStepFormValues] = useState({});
   const [roleFormValues, setRoleFormValues] = useState({});
@@ -94,7 +95,8 @@ const TableList: React.FC<{}> = () => {
     {
       title: '角色',
       dataIndex: 'roles',
-      renderText: (roles: any[]) => roles.map(({ roles }) => roles.name).join(', '),
+      renderText: (roles: any[]) => roles.map(({ roles }) => roles.name).
+        join(', '),
     },
     // {
     //   title: '是否是超级管理员',
@@ -104,13 +106,19 @@ const TableList: React.FC<{}> = () => {
     {
       title: '创建时间',
       dataIndex: 'users',
-      renderText: (val: any) => moment(val.createDate).fromNow(),
+      renderText: (val: any) => {
+        return moment(moment.utc(val?.createDate).toDate()).
+          local(true).
+          format('YYYY-MM-DD');
+      },
+
     },
     {
       title: '更新时间',
       dataIndex: 'users',
-      valueType: 'dateTime',
-      renderText: (val: any) => val?.updateDate,
+      renderText: (val: any) => moment(moment.utc(val?.updateDate).toDate()).
+        local(true).
+        fromNow(),
     },
     {
       title: '操作',
@@ -131,7 +139,7 @@ const TableList: React.FC<{}> = () => {
 
           {checkPermission('USERS_WRITE') ? (
             <>
-              <Divider type="vertical" />
+              <Divider type="vertical"/>
               <a
                 onClick={() => {
                   handleRoleModalVisible(true);
@@ -151,7 +159,7 @@ const TableList: React.FC<{}> = () => {
     if (checkPermission('USERS_WRITE')) {
       return (
         <Button type="primary" onClick={() => handleModalVisible(true)}>
-          <PlusOutlined /> 新建
+          <PlusOutlined/> 新建
         </Button>
       );
     }
@@ -196,7 +204,8 @@ const TableList: React.FC<{}> = () => {
               }
             } catch (e) {
               form?.setFields(
-                Object.keys(e.data).map((key) => ({ name: key, errors: [e.data[key]] })),
+                Object.keys(e.data).
+                  map((key) => ({ name: key, errors: [e.data[key]] })),
               );
               // console.log(form)
             }
