@@ -21,7 +21,6 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
 
   const { modalVisible, onSubmit: handleAdd, onCancel } = props;
 
-
   const { data: menus } = useSWR('/oauth2/selectMenus', request);
   const { data: permissions } = useSWR('/oauth2/permissions', request);
   const { data, error, isPending, run } = useAsync({ deferFn: updateMenuAsync });
@@ -31,7 +30,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
   const okHandle = async () => {
     const fieldsValue = (await form.validateFields()) as CreateParams;
     // form.resetFields();
-    run(fieldsValue)
+    run(fieldsValue);
   };
   return (
     <Modal

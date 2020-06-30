@@ -72,10 +72,8 @@ const handlePermissions = async (fields: PermissionFormParams) => {
 
 const TableList: React.FC<{}> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
-  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(
-    false);
-  const [permissionModalVisible, handlePermissionModalVisible] = useState<boolean>(
-    false);
+  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
+  const [permissionModalVisible, handlePermissionModalVisible] = useState<boolean>(false);
   const [stepFormValues, setStepFormValues] = useState({});
   const [permissionFormValues, setPermissionFormValues] = useState({});
   const actionRef = useRef<ActionType>();
@@ -99,19 +97,13 @@ const TableList: React.FC<{}> = () => {
       title: '创建时间',
       dataIndex: 'roles',
       renderText: (val: any) => {
-
-        return moment(moment.utc(val?.createDate).toDate()).
-          local(true).
-          format('YYYY-MM-DD');
+        return moment(moment.utc(val?.createDate).toDate()).local(true).format('YYYY-MM-DD');
       },
-
     },
     {
       title: '更新时间',
       dataIndex: 'roles',
-      renderText: (val: any) => moment(moment.utc(val?.updateDate).toDate()).
-        local(true).
-        fromNow(),
+      renderText: (val: any) => moment(moment.utc(val?.updateDate).toDate()).local(true).fromNow(),
     },
     {
       title: '操作',
@@ -132,7 +124,7 @@ const TableList: React.FC<{}> = () => {
 
           {checkPermission('ROLES_WRITE') ? (
             <>
-              <Divider type="vertical"/>
+              <Divider type="vertical" />
               <a
                 onClick={() => {
                   handlePermissionModalVisible(true);
@@ -152,7 +144,7 @@ const TableList: React.FC<{}> = () => {
     if (checkPermission('ROLES_WRITE')) {
       return (
         <Button type="primary" onClick={() => handleModalVisible(true)}>
-          <PlusOutlined/> 新建
+          <PlusOutlined /> 新建
         </Button>
       );
     }

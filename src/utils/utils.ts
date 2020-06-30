@@ -1,6 +1,8 @@
 import { parse } from 'querystring';
 import pathRegexp from 'path-to-regexp';
 import { Route } from '@/models/connect';
+import { useState } from 'react';
+import { TableListParams } from '@/pages/admin/menus/list/data';
 
 /* eslint no-useless-escape:0 import/prefer-default-export:0 */
 const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/;
@@ -34,7 +36,8 @@ export const getAuthorityFromRouter = <T extends { path?: string }>(
   router: T[] = [],
   pathname: string,
 ): T | undefined => {
-  const authority = router.find(({ path = '/' }) => path && pathRegexp(path).exec(pathname));
+  const authority = router.find(
+    ({ path = '/' }) => path && pathRegexp(path).exec(pathname));
   if (authority) return authority;
   return undefined;
 };
@@ -58,4 +61,35 @@ export const getRouteAuthority = (path: string, routeData: Route[]) => {
     }
   });
   return authorities;
+};
+
+export const useExpandedTable = (
+  f: (params?: TableListParams) => Promise<any>, id: string) => {
+  const [defaultExpanded, setDefaultExpanded] = useState([]);
+  const getData = async (params: TableListParams) => {
+    const data = await f(params);
+    const newExpandedKeys: any[] = [];
+    const render = (treeDatas: any[]) => { // 获取到所有可展开的父节点
+      // eslint-disable-next-line array-callback-return
+      treeDatas.map(item => {
+        if (item.children) {
+          newExpandedKeys.push(item[id]);
+          render(item.children);
+        }
+      });
+      return newExpandedKeys;
+    };
+    const keyArray = render(data.data);
+    setDefaultExpanded(keyArray as any);
+
+    return data;
+  };
+  return {
+    expandedRowKeys: defaultExpanded,
+    onExpandedRowsChange: (key: any) => {
+      setDefaultExpanded(key);
+    },
+    request: (params: TableListParams) => getData(params),
+  };
+
 };

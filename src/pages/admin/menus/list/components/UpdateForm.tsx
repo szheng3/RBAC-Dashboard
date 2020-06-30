@@ -33,7 +33,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
     parent: props.values.parent,
     permissionId: props.values?.permissions[0]?._id,
-    menu: props.values.menu,
+    menu: props.values,
   });
 
   const [form] = Form.useForm();

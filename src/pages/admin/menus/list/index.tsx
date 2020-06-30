@@ -9,6 +9,7 @@ import CreateForm from './components/CreateForm';
 import UpdateForm from './components/UpdateForm';
 import { CreateParams, TableListItem, UpdateParams } from './data.d';
 import { addMenu, queryMenus, updateMenu } from './service';
+import { useExpandedTable } from '@/utils/utils';
 
 /**
  * 添加菜单
@@ -54,49 +55,51 @@ const TableList: React.FC<{}> = () => {
   const [stepFormValues, setStepFormValues] = useState({});
   const actionRef = useRef<ActionType>();
   const columns: ProColumns<TableListItem>[] = [
-    {
-      title: 'Id',
-      dataIndex: 'idMenu',
-    },
+    // {
+    //   title: 'key',
+    //   dataIndex: 'idMenu',
+    // },
     {
       title: '中文描述',
-      dataIndex: 'menu',
-      renderText: (menu: any) => menu?.name,
+      dataIndex: 'name',
+      // renderText: (menu: any) => menu?.name,
     },
     {
       title: '图标',
-      dataIndex: 'menu',
-      renderText: (menu: any) => menu?.icon,
+      dataIndex: 'icon',
+      // renderText: (menu: any) => menu?.icon,
     },
     {
       title: '路径',
-      dataIndex: 'menu',
-      renderText: (menu: any) => menu?.path,
+      dataIndex: 'path',
+      // renderText: (menu: any) => menu?.path,
     },
     {
       title: '权限',
       dataIndex: 'permissions',
       renderText: (menu: any[]) => menu?.map(({ name }) => name).join(', '),
     },
-    {
-      title: '父类菜单',
-      dataIndex: 'menu',
-      renderText: (menu: any) => menu?.idParent,
-    },
+    // {
+    //   title: '父类菜单',
+    //   dataIndex: 'idParent',
+    //   // renderText: (menu: any) => menu?.idParent,
+    // },
     {
       title: '创建时间',
-      dataIndex: 'menu',
+      dataIndex: 'createDate',
       renderText: (val: any) => {
-        return moment(moment.utc(val?.createDate).toDate()).
+        return moment(moment.utc(val).toDate()).
           local(true).
-          fromNow()
+          fromNow();
         // return moment(moment.utc(val?.createDate).toDate()).local(true).format('YYYY-MM-DD')},
-      }
+      },
     },
     {
       title: '更新时间',
-      dataIndex: 'menu',
-      renderText: (val: any) => moment(moment.utc(val?.updateDate).toDate()).local(true).fromNow() ,
+      dataIndex: 'updateDate',
+      renderText: (val: any) => moment(moment.utc(val).toDate()).
+        local(true).
+        fromNow(),
     },
     {
       title: '操作',
@@ -130,29 +133,30 @@ const TableList: React.FC<{}> = () => {
     return null;
   };
 
+
+
   return (
     <PageHeaderWrapper>
       <ProTable<TableListItem>
         actionRef={actionRef}
         rowKey="idMenu"
         toolBarRender={(action, { selectedRows }) => [renderCreateButton()]}
-        pagination={{ defaultPageSize: 8 }}
+        pagination={false}
         search={false}
-        request={(params) => queryMenus(params)}
+        {...useExpandedTable(queryMenus,'idMenu')}
         columns={columns}
       />
-      <CreateForm
+      {checkPermission('MENU_WRITE')&&<CreateForm
         onSubmit={() => {
           handleModalVisible(false);
           if (actionRef.current) {
             actionRef.current.reload();
           }
-
         }}
         onCancel={() => handleModalVisible(false)}
         modalVisible={createModalVisible}
-      />
-      {stepFormValues && Object.keys(stepFormValues).length ? (
+      />}
+      {checkPermission('MENU_WRITE') &&stepFormValues && Object.keys(stepFormValues).length? (
         <UpdateForm
           onSubmit={() => {
             handleUpdateModalVisible(false);
@@ -167,6 +171,7 @@ const TableList: React.FC<{}> = () => {
           }}
           updateModalVisible={updateModalVisible}
           values={stepFormValues}
+
         />
       ) : null}
     </PageHeaderWrapper>
