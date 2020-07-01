@@ -3,7 +3,6 @@ import { history } from 'umi';
 
 import { fakeAccountLogin, getFakeCaptcha } from '@/services/login';
 import { getPageQuery } from '@/utils/utils';
-import { message } from 'antd';
 import { reloadAuthorized } from '@/utils/Authorized';
 import { remove, save } from '@/utils/StorageUtil';
 import { ModelType } from '@/models/connect';

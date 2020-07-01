@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
 import moment from 'moment';
-import checkPermission from '@/utils/checkPermission';
+import checkPermission, { PermissionsEnum } from '@/utils/checkPermission';
 import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
 import RoleForm from './components/RoleForm';
@@ -119,7 +119,7 @@ const TableList: React.FC<{}> = () => {
       valueType: 'option',
       render: (_, record) => (
         <>
-          {checkPermission('USERS_WRITE') ? (
+          {checkPermission(PermissionsEnum.USERS_WRITE) ? (
             <a
               onClick={() => {
                 handleUpdateModalVisible(true);
@@ -130,7 +130,7 @@ const TableList: React.FC<{}> = () => {
             </a>
           ) : null}
 
-          {checkPermission('USERS_WRITE') ? (
+          {checkPermission(PermissionsEnum.USERS_WRITE) ? (
             <>
               <Divider type="vertical" />
               <a
@@ -149,7 +149,7 @@ const TableList: React.FC<{}> = () => {
   ];
 
   const renderCreateButton = () => {
-    if (checkPermission('USERS_WRITE')) {
+    if (checkPermission(PermissionsEnum.USERS_WRITE)) {
       return (
         <Button type="primary" onClick={() => handleModalVisible(true)}>
           <PlusOutlined /> 新建
@@ -167,7 +167,7 @@ const TableList: React.FC<{}> = () => {
         toolBarRender={(action, { selectedRows }) => [renderCreateButton()]}
         pagination={false}
         search={false}
-        request={(params) => queryUsers()}
+        request={(params) => queryUsers(params)}
         columns={columns}
       />
       <CreateForm

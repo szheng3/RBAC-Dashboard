@@ -1,6 +1,13 @@
 import { getAuthority } from '@/utils/authority';
 
-const checkPermission = (name: string) => {
+export enum PermissionsEnum {
+  MENU_WRITE = "MENU_WRITE",
+  PERMISSION_WRITE="PERMISSION_WRITE",
+  ROLES_WRITE="ROLES_WRITE",
+  USERS_WRITE="USERS_WRITE",
+
+}
+const checkPermission = (name: PermissionsEnum) => {
   const isAllowed = (permissions: string[]) => permissions?.indexOf(name) > -1;
 
   // const { currentUser } = useSelector<ConnectState, UserModelState>(

@@ -23,7 +23,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
 
   const { data: menus } = useSWR('/oauth2/selectMenus', request);
   const { data: permissions } = useSWR('/oauth2/permissions', request);
-  const { data, error, isPending, run } = useAsync({ deferFn: updateMenuAsync });
+  const { data, isPending, run } = useAsync({ deferFn: updateMenuAsync });
   if (data) {
     handleAdd();
   }

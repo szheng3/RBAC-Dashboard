@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
 import moment from 'moment';
-import checkPermission from '@/utils/checkPermission';
+import checkPermission, { PermissionsEnum } from '@/utils/checkPermission';
 import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
 import { CreateParams, TableListItem } from './data.d';
@@ -84,7 +84,7 @@ const TableList: React.FC<{}> = () => {
       valueType: 'option',
       render: (_, record) => (
         <>
-          {checkPermission('PERMISSION_WRITE') ? (
+          {checkPermission(PermissionsEnum.PERMISSION_WRITE) ? (
             <a
               onClick={() => {
                 handleUpdateModalVisible(true);
@@ -100,7 +100,7 @@ const TableList: React.FC<{}> = () => {
   ];
 
   const renderCreateButton = () => {
-    if (checkPermission('PERMISSION_WRITE')) {
+    if (checkPermission(PermissionsEnum.PERMISSION_WRITE)) {
       return (
         <Button type="primary" onClick={() => handleModalVisible(true)}>
           <PlusOutlined /> 新建
@@ -115,7 +115,7 @@ const TableList: React.FC<{}> = () => {
       <ProTable<TableListItem>
         actionRef={actionRef}
         rowKey="_id"
-        toolBarRender={(action, { selectedRows }) => [renderCreateButton()]}
+        toolBarRender={( ) => [renderCreateButton()]}
         pagination={{ defaultPageSize: 8 }}
         search={false}
         request={(params) => queryPermissions(params)}

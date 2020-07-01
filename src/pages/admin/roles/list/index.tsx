@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
 import moment from 'moment';
-import checkPermission from '@/utils/checkPermission';
+import checkPermission, { PermissionsEnum } from '@/utils/checkPermission';
 import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
 import { CreateParams, PermissionFormParams, TableListItem } from './data.d';
@@ -111,7 +111,7 @@ const TableList: React.FC<{}> = () => {
       valueType: 'option',
       render: (_, record) => (
         <>
-          {checkPermission('ROLES_WRITE') ? (
+          {checkPermission(PermissionsEnum.ROLES_WRITE) ? (
             <a
               onClick={() => {
                 handleUpdateModalVisible(true);
@@ -122,7 +122,7 @@ const TableList: React.FC<{}> = () => {
             </a>
           ) : null}
 
-          {checkPermission('ROLES_WRITE') ? (
+          {checkPermission(PermissionsEnum.ROLES_WRITE) ? (
             <>
               <Divider type="vertical" />
               <a
@@ -141,7 +141,7 @@ const TableList: React.FC<{}> = () => {
   ];
 
   const renderCreateButton = () => {
-    if (checkPermission('ROLES_WRITE')) {
+    if (checkPermission(PermissionsEnum.ROLES_WRITE)) {
       return (
         <Button type="primary" onClick={() => handleModalVisible(true)}>
           <PlusOutlined /> 新建
@@ -175,7 +175,7 @@ const TableList: React.FC<{}> = () => {
         onCancel={() => handleModalVisible(false)}
         modalVisible={createModalVisible}
       />
-      {stepFormValues && Object.keys(stepFormValues).length ? (
+      {checkPermission(PermissionsEnum.ROLES_WRITE)&&stepFormValues && Object.keys(stepFormValues).length ? (
         <UpdateForm
           onSubmit={async (value) => {
             const success = await handleUpdate(value);

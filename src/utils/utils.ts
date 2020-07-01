@@ -36,8 +36,7 @@ export const getAuthorityFromRouter = <T extends { path?: string }>(
   router: T[] = [],
   pathname: string,
 ): T | undefined => {
-  const authority = router.find(
-    ({ path = '/' }) => path && pathRegexp(path).exec(pathname));
+  const authority = router.find(({ path = '/' }) => path && pathRegexp(path).exec(pathname));
   if (authority) return authority;
   return undefined;
 };
@@ -63,15 +62,15 @@ export const getRouteAuthority = (path: string, routeData: Route[]) => {
   return authorities;
 };
 
-export const useExpandedTable = (
-  f: (params?: TableListParams) => Promise<any>, id: string) => {
+export const useExpandedTable = (f: (params?: TableListParams) => Promise<any>, id: string) => {
   const [defaultExpanded, setDefaultExpanded] = useState([]);
   const getData = async (params: TableListParams) => {
     const data = await f(params);
     const newExpandedKeys: any[] = [];
-    const render = (treeDatas: any[]) => { // 获取到所有可展开的父节点
+    const render = (treeDatas: any[]) => {
+      // 获取到所有可展开的父节点
       // eslint-disable-next-line array-callback-return
-      treeDatas.map(item => {
+      treeDatas.map((item) => {
         if (item.children) {
           newExpandedKeys.push(item[id]);
           render(item.children);
@@ -91,5 +90,4 @@ export const useExpandedTable = (
     },
     request: (params: TableListParams) => getData(params),
   };
-
 };

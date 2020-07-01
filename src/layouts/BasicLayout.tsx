@@ -19,6 +19,7 @@ import { ConnectState } from '@/models/connect';
 import { getAuthorityFromRouter, isAntDesignPro } from '@/utils/utils';
 import logo from '@/assets/logo.svg';
 import { useDispatch, useSelector } from '@@/plugin-dva/exports';
+import { useModel } from '@@/plugin-model/useModel';
 
 const noMatch = (
   <Result
