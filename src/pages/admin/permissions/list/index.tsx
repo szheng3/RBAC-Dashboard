@@ -53,8 +53,7 @@ const handleUpdate = async (fields: FormValueType) => {
 
 const TableList: React.FC<{}> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
-  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(
-    false);
+  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
   const [stepFormValues, setStepFormValues] = useState({});
   const actionRef = useRef<ActionType>();
   const columns: ProColumns<TableListItem>[] = [
@@ -71,17 +70,13 @@ const TableList: React.FC<{}> = () => {
       title: '创建时间',
       dataIndex: 'createDate',
       renderText: (val: any) => {
-        return moment(moment.utc(val).toDate()).
-          local(true).
-          format('YYYY-MM-DD');
+        return moment(moment.utc(val).toDate()).local(true).format('YYYY-MM-DD');
       },
     },
     {
       title: '更新时间',
       dataIndex: 'updateDate',
-      renderText: (val: any) => moment(moment.utc(val).toDate()).
-        local(true).
-        fromNow(),
+      renderText: (val: any) => moment(moment.utc(val).toDate()).local(true).fromNow(),
     },
     {
       title: '操作',
@@ -106,12 +101,14 @@ const TableList: React.FC<{}> = () => {
 
   const renderCreateButton = () => {
     return (
-      <Button disabled={!checkPermission(PermissionsEnum.PERMISSION_WRITE)}
-              type="primary" onClick={() => handleModalVisible(true)}>
-        <PlusOutlined/> 新建
+      <Button
+        disabled={!checkPermission(PermissionsEnum.PERMISSION_WRITE)}
+        type="primary"
+        onClick={() => handleModalVisible(true)}
+      >
+        <PlusOutlined /> 新建
       </Button>
     );
-
   };
 
   return (

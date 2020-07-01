@@ -72,10 +72,8 @@ const handlePermissions = async (fields: PermissionFormParams) => {
 
 const TableList: React.FC<{}> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
-  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(
-    false);
-  const [permissionModalVisible, handlePermissionModalVisible] = useState<boolean>(
-    false);
+  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
+  const [permissionModalVisible, handlePermissionModalVisible] = useState<boolean>(false);
   const [stepFormValues, setStepFormValues] = useState({});
   const [permissionFormValues, setPermissionFormValues] = useState({});
   const actionRef = useRef<ActionType>();
@@ -99,17 +97,13 @@ const TableList: React.FC<{}> = () => {
       title: '创建时间',
       dataIndex: 'roles',
       renderText: (val: any) => {
-        return moment(moment.utc(val?.createDate).toDate()).
-          local(true).
-          format('YYYY-MM-DD');
+        return moment(moment.utc(val?.createDate).toDate()).local(true).format('YYYY-MM-DD');
       },
     },
     {
       title: '更新时间',
       dataIndex: 'roles',
-      renderText: (val: any) => moment(moment.utc(val?.updateDate).toDate()).
-        local(true).
-        fromNow(),
+      renderText: (val: any) => moment(moment.utc(val?.updateDate).toDate()).local(true).fromNow(),
     },
     {
       title: '操作',
@@ -117,7 +111,6 @@ const TableList: React.FC<{}> = () => {
       valueType: 'option',
       render: (_, record) => (
         <>
-
           <a
             type="link"
             disabled={!checkPermission(PermissionsEnum.ROLES_WRITE)}
@@ -128,7 +121,7 @@ const TableList: React.FC<{}> = () => {
           >
             修改
           </a>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <a
             type="link"
             disabled={!checkPermission(PermissionsEnum.ROLES_WRITE)}
@@ -145,12 +138,15 @@ const TableList: React.FC<{}> = () => {
   ];
 
   const renderCreateButton = () => {
-      return (
-        <Button type="primary"   disabled={!checkPermission(PermissionsEnum.ROLES_WRITE)} onClick={() => handleModalVisible(true)}>
-          <PlusOutlined/> 新建
-        </Button>
-      );
-
+    return (
+      <Button
+        type="primary"
+        disabled={!checkPermission(PermissionsEnum.ROLES_WRITE)}
+        onClick={() => handleModalVisible(true)}
+      >
+        <PlusOutlined /> 新建
+      </Button>
+    );
   };
 
   return (

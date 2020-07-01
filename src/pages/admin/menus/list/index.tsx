@@ -81,12 +81,15 @@ const TableList: React.FC<{}> = () => {
   ];
 
   const renderCreateButton = () => {
-      return (
-        <Button disabled={!checkPermission(PermissionsEnum.MENU_WRITE)} type="primary" onClick={() => handleModalVisible(true)}>
-          <PlusOutlined /> 新建
-        </Button>
-      );
-
+    return (
+      <Button
+        disabled={!checkPermission(PermissionsEnum.MENU_WRITE)}
+        type="primary"
+        onClick={() => handleModalVisible(true)}
+      >
+        <PlusOutlined /> 新建
+      </Button>
+    );
   };
 
   return (
