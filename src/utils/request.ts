@@ -5,7 +5,7 @@
 import { extend, RequestOptionsInit } from 'umi-request';
 import { notification } from 'antd';
 import { get } from '@/utils/StorageUtil';
-import { getDvaApp } from 'umi';
+import { getDvaApp,history } from 'umi';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -46,7 +46,9 @@ const codeMessage = {
 //   }
 //   return response;
 // };
-const errorHandler = (error: { response: Response }): Response | void => {
+const errorHandler = (error: {
+  data?: string ;
+  response: Response }): Response | void => {
   const { response } = error;
   const { status, url, statusText } = response;
 
@@ -58,13 +60,14 @@ const errorHandler = (error: { response: Response }): Response | void => {
 
   notification.error({
     message: `请求错误 ${status}: ${url}`,
-    description: JSON.stringify(error.data),
+    description: JSON.stringify(error?.data),
   });
 
   if (status === 401) {
     // notification.error({
     //   message: '未登录或登录已过期，请重新登录。',
     // });
+    // eslint-disable-next-line no-unused-expressions
     getDvaApp()?._store?.dispatch({
       type: 'login/logout',
     });
@@ -74,11 +77,13 @@ const errorHandler = (error: { response: Response }): Response | void => {
 
   if (status === 403) {
     history.push('/exception/403');
+    // eslint-disable-next-line consistent-return
     return;
   }
 
   if (status === 500) {
     history.push('/exception/500');
+    // eslint-disable-next-line consistent-return
     return;
   }
 
