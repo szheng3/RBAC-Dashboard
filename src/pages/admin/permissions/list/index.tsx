@@ -123,7 +123,7 @@ const TableList: React.FC<{}> = () => {
         columns={columns}
       />
       <CreateForm
-        onSubmit={async (value) => {
+        onSubmit={async (value:any) => {
           const success = await handleAdd(value);
           if (success) {
             handleModalVisible(false);

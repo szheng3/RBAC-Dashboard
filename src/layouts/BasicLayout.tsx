@@ -11,7 +11,7 @@ import ProLayout, {
 } from '@ant-design/pro-layout';
 import React, { useEffect } from 'react';
 import { Dispatch, formatMessage, Link } from 'umi';
-import { createFromIconfontCN, GithubOutlined } from '@ant-design/icons';
+import { createFromIconfontCN } from '@ant-design/icons';
 import { Button, Result } from 'antd';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
@@ -19,7 +19,6 @@ import { ConnectState } from '@/models/connect';
 import { getAuthorityFromRouter, isAntDesignPro } from '@/utils/utils';
 import logo from '@/assets/logo.svg';
 import { useDispatch, useSelector } from '@@/plugin-dva/exports';
-import { useModel } from '@@/plugin-model/useModel';
 
 const noMatch = (
   <Result
