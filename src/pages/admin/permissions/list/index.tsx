@@ -115,7 +115,7 @@ const TableList: React.FC<{}> = () => {
       <ProTable<TableListItem>
         actionRef={actionRef}
         rowKey="_id"
-        toolBarRender={( ) => [renderCreateButton()]}
+        toolBarRender={() => [renderCreateButton()]}
         pagination={{ defaultPageSize: 8 }}
         search={false}
         request={(params) => queryPermissions(params)}

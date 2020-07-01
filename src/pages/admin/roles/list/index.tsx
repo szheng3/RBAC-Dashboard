@@ -175,7 +175,9 @@ const TableList: React.FC<{}> = () => {
         onCancel={() => handleModalVisible(false)}
         modalVisible={createModalVisible}
       />
-      {checkPermission(PermissionsEnum.ROLES_WRITE)&&stepFormValues && Object.keys(stepFormValues).length ? (
+      {checkPermission(PermissionsEnum.ROLES_WRITE) &&
+      stepFormValues &&
+      Object.keys(stepFormValues).length ? (
         <UpdateForm
           onSubmit={async (value) => {
             const success = await handleUpdate(value);

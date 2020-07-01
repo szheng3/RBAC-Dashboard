@@ -13,8 +13,7 @@ import { useExpandedTable } from '@/utils/utils';
 
 const TableList: React.FC<{}> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
-  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(
-    false);
+  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
   const [stepFormValues, setStepFormValues] = useState({});
   const actionRef = useRef<ActionType>();
   const columns: ProColumns<TableListItem>[] = [
@@ -58,9 +57,7 @@ const TableList: React.FC<{}> = () => {
     {
       title: '更新时间',
       dataIndex: 'updateDate',
-      renderText: (val: any) => moment(moment.utc(val).toDate()).
-        local(true).
-        fromNow(),
+      renderText: (val: any) => moment(moment.utc(val).toDate()).local(true).fromNow(),
     },
     {
       title: '操作',
@@ -87,7 +84,7 @@ const TableList: React.FC<{}> = () => {
     if (checkPermission(PermissionsEnum.MENU_WRITE)) {
       return (
         <Button type="primary" onClick={() => handleModalVisible(true)}>
-          <PlusOutlined/> 新建
+          <PlusOutlined /> 新建
         </Button>
       );
     }
@@ -117,7 +114,8 @@ const TableList: React.FC<{}> = () => {
           modalVisible={createModalVisible}
         />
       )}
-      {checkPermission(PermissionsEnum.MENU_WRITE) && stepFormValues &&
+      {checkPermission(PermissionsEnum.MENU_WRITE) &&
+      stepFormValues &&
       Object.keys(stepFormValues).length ? (
         <UpdateForm
           onSubmit={() => {

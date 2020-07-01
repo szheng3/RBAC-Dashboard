@@ -1,5 +1,5 @@
 export async function getInitialState() {
-  console.log("init")
+  console.log('init');
   return {
     groupName: 'umijs',
   };
