@@ -9,9 +9,13 @@ export default () => {
   return (
     <PageHeaderWrapper>
       <Card bordered={false}>
-        <SwaggerUI url="https://splice.passgpa.com/v2/api-docs" requestInterceptor={req => {
-          req.headers.Authorization = `Bearer ${get('sso')}`;
-         return  req}}/>
+        <SwaggerUI
+          url="https://splice.passgpa.com/v2/api-docs"
+          requestInterceptor={(req) => {
+            req.headers.Authorization = `Bearer ${get('sso')}`;
+            return req;
+          }}
+        />
       </Card>
     </PageHeaderWrapper>
   );
