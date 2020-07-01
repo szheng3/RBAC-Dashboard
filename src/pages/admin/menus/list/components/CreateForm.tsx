@@ -81,7 +81,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
           >
             <Select allowClear placeholder="请选择权限！" style={{ width: '100%' }}>
               {permissions?.data?.map((menu: TableListItem) => (
-                <Option key={menu._id} value={menu._id}>
+                <Option key={menu.id} value={menu.id}>
                   {menu.name}
                 </Option>
               ))}

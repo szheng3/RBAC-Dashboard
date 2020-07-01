@@ -1,5 +1,5 @@
 export interface TableListItem {
-  _id: string;
+  id: string;
   name: string;
   nameCn: string;
 }

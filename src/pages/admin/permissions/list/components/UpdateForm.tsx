@@ -25,7 +25,7 @@ const formLayout = {
 
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
-    _id: props.values._id,
+    id: props.values.id,
     name: props.values.name,
     nameCn: props.values.nameCn,
   });
@@ -51,7 +51,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
     return (
       <>
         <FormItem
-          name="_id"
+          name="id"
           label="标识符"
           rules={[{ required: true, message: '请输入英文名称！' }]}
         >
@@ -64,7 +64,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         >
           <Input placeholder="请输入中文标识！" />
         </FormItem>
-        <FormItem name="_id" label={false}>
+        <FormItem name="id" label={false}>
           <Input type="hidden" />
         </FormItem>
       </>
@@ -97,7 +97,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         {...formLayout}
         form={form}
         initialValues={{
-          _id: formVals._id,
+          id: formVals.id,
           name: formVals.name,
           nameCn: formVals.nameCn,
         }}

@@ -33,7 +33,7 @@ export interface CreateParams {
 }
 
 export interface UpdateParams {
-  _id: string;
+  id: string;
   name: string;
   path: string;
   nameCn: string;

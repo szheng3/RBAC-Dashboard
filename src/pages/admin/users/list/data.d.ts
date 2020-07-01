@@ -29,6 +29,6 @@ export interface CreateParams {
 }
 
 export interface RoleFormParams {
-  _id: string;
+  id: string;
   roleIds: string[];
 }

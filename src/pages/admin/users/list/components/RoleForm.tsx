@@ -26,7 +26,7 @@ const formLayout = {
 
 const RoleForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
-    _id: props.values.id,
+    id: props.values.id,
     username: props.values.username,
     password: props.values.password,
   });
@@ -35,7 +35,7 @@ const RoleForm: React.FC<UpdateFormProps> = (props) => {
 
   const [loading, setLoading] = useState<boolean | undefined>(undefined);
   const [defaultRoles] = useState(props.values.roles || []);
-  const [roleIds, setRoleIds] = useState<string[]>(defaultRoles.map((role) => role._id));
+  const [roleIds, setRoleIds] = useState<string[]>(defaultRoles.map((role) => role.id));
 
   useEffect(() => {
     setLoading(true);
@@ -90,12 +90,12 @@ const RoleForm: React.FC<UpdateFormProps> = (props) => {
       <Spin spinning={loading}>
         <Row>
           {roles.map((role) => (
-            <Col key={role?._id} span={8}>
+            <Col key={role?.id} span={8}>
               <Checkbox
-                defaultChecked={!!defaultRoles.find((p) => p._id === role._id)}
+                defaultChecked={!!defaultRoles.find((p) => p.id === role.id)}
                 onChange={handleCheckboxChange}
                 type="checkbox"
-                id={role?._id}
+                id={role?.id}
               >
                 {role?.roles?.name}
               </Checkbox>
@@ -103,7 +103,7 @@ const RoleForm: React.FC<UpdateFormProps> = (props) => {
           ))}
         </Row>
 
-        <FormItem name="_id" label={false}>
+        <FormItem name="id" label={false}>
           <Input type="hidden" />
         </FormItem>
       </Spin>

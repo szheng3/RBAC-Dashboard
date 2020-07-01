@@ -72,14 +72,7 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
     return Authorized.check(item.authority, localItem, null) as MenuDataItem;
   });
 
-const defaultFooterDom = (
-  <DefaultFooter
-    copyright="2020 Shuai's Resume Dashboard"
-    links={[
-
-    ]}
-  />
-);
+const defaultFooterDom = <DefaultFooter copyright="2020 Shuai's Resume Dashboard" links={[]} />;
 
 const footerRender: BasicLayoutProps['footerRender'] = () => {
   if (!isAntDesignPro()) {

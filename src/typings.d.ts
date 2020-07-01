@@ -1,3 +1,5 @@
+import { HTMLAttributes } from 'react';
+
 declare module 'slash2';
 declare module '*.css';
 declare module '*.less';
@@ -22,6 +24,11 @@ interface GAFieldsObject {
   nonInteraction?: boolean;
 }
 
+declare module 'react' {
+  interface AnchorHTMLAttributes<T> extends HTMLAttributes<T> {
+    disabled?: boolean;
+  }
+}
 interface Window {
   ga: (
     command: 'send',

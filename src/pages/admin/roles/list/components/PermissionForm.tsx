@@ -30,7 +30,7 @@ const formLayout = {
 
 const PermissionForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
-    _id: props.values._id,
+    id: props.values.id,
     name: props.values.name,
     nameCn: props.values.nameCn,
   });
@@ -40,7 +40,7 @@ const PermissionForm: React.FC<UpdateFormProps> = (props) => {
   const [loading, setLoading] = useState<boolean | undefined>(undefined);
   const [defaultPermissions] = useState(props.values.permissions || []);
   const [permissionIds, setPermissionIds] = useState<string[]>(
-    defaultPermissions.map((permission) => permission._id),
+    defaultPermissions.map((permission) => permission.id),
   );
 
   useEffect(() => {
@@ -105,12 +105,12 @@ const PermissionForm: React.FC<UpdateFormProps> = (props) => {
             </Divider>
             <Row>
               {permissionsByGroup[name].map((permission) => (
-                <Col key={permission._id} span={8}>
+                <Col key={permission.id} span={8}>
                   <Checkbox
-                    defaultChecked={!!defaultPermissions.find((p) => p._id === permission._id)}
+                    defaultChecked={!!defaultPermissions.find((p) => p.id === permission.id)}
                     onChange={handleCheckboxChange}
                     type="checkbox"
-                    id={permission._id}
+                    id={permission.id}
                   >
                     {permission.name}
                   </Checkbox>
@@ -120,7 +120,7 @@ const PermissionForm: React.FC<UpdateFormProps> = (props) => {
             <br />
           </div>
         ))}
-        <FormItem name="_id" label={false}>
+        <FormItem name="id" label={false}>
           <Input type="hidden" />
         </FormItem>
       </Spin>
@@ -153,7 +153,7 @@ const PermissionForm: React.FC<UpdateFormProps> = (props) => {
         {...formLayout}
         form={form}
         initialValues={{
-          _id: formVals._id,
+          id: formVals.id,
           name: formVals.name,
           nameCn: formVals.nameCn,
         }}

@@ -32,7 +32,7 @@ const formLayout = {
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
     parent: props.values.parent,
-    permissionId: props.values?.permissions[0]?._id,
+    permissionId: props.values?.permissions[0]?.id,
     menu: props.values,
   });
 
@@ -82,7 +82,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         <FormItem label="权限" name="permissionId">
           <Select allowClear placeholder="请选择权限！" style={{ width: '100%' }}>
             {permissions?.data?.map((menu: TableListItem) => (
-              <Option key={menu._id} value={menu._id}>
+              <Option key={menu.id} value={menu.id}>
                 {menu.name}
               </Option>
             ))}

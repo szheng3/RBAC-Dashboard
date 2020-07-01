@@ -32,7 +32,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="标识符"
-          name="_id"
+          name="id"
           rules={[{ required: true, message: '请输入英文名称！' }]}
         >
           <Input placeholder="请输入英文名称！" />

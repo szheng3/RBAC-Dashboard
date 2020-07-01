@@ -16,7 +16,7 @@ const proSettings: DefaultSettings = {
   menu: {
     locale: true,
   },
-  title: 'Shuai\'s Resume',
+  title: "Shuai's Resume",
   pwa: false,
   iconfontUrl: '',
 };

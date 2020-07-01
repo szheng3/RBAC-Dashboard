@@ -1,7 +1,7 @@
 import { TableListItem as PermissionData } from '../../permissions/list/data.d';
 
 export interface TableListItem {
-  _id: string;
+  id: string;
   name: string;
   nameCn: string;
   permissions: PermissionData[];
@@ -29,6 +29,6 @@ export interface CreateParams {
 }
 
 export interface PermissionFormParams {
-  _id: string;
+  id: string;
   permissionIds: string[];
 }

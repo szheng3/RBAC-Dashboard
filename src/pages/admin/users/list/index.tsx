@@ -59,7 +59,7 @@ const handleRoles = async (fields: RoleFormParams) => {
   console.log(fields);
   try {
     await setRoles({
-      userId: fields._id,
+      userId: fields.id,
       roleIds: fields.roleIds,
     });
     hide();
@@ -75,7 +75,8 @@ const handleRoles = async (fields: RoleFormParams) => {
 
 const TableList: React.FC<{}> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
-  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
+  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(
+    false);
   const [roleModalVisible, handleRoleModalVisible] = useState<boolean>(false);
   const [stepFormValues, setStepFormValues] = useState({});
   const [roleFormValues, setRoleFormValues] = useState({});
@@ -94,7 +95,8 @@ const TableList: React.FC<{}> = () => {
     {
       title: '角色',
       dataIndex: 'roles',
-      renderText: (roles: any[]) => roles.map(({ roles }) => roles.name).join(', '),
+      renderText: (roles: any[]) => roles.map(({ roles }) => roles.name).
+        join(', '),
     },
     // {
     //   title: '是否是超级管理员',
@@ -105,13 +107,17 @@ const TableList: React.FC<{}> = () => {
       title: '创建时间',
       dataIndex: 'users',
       renderText: (val: any) => {
-        return moment(moment.utc(val?.createDate).toDate()).local(true).format('YYYY-MM-DD');
+        return moment(moment.utc(val?.createDate).toDate()).
+          local(true).
+          format('YYYY-MM-DD');
       },
     },
     {
       title: '更新时间',
       dataIndex: 'users',
-      renderText: (val: any) => moment(moment.utc(val?.updateDate).toDate()).local(true).fromNow(),
+      renderText: (val: any) => moment(moment.utc(val?.updateDate).toDate()).
+        local(true).
+        fromNow(),
     },
     {
       title: '操作',
@@ -119,44 +125,42 @@ const TableList: React.FC<{}> = () => {
       valueType: 'option',
       render: (_, record) => (
         <>
-          {checkPermission(PermissionsEnum.USERS_WRITE) ? (
-            <a
-              onClick={() => {
-                handleUpdateModalVisible(true);
-                setStepFormValues(record);
-              }}
-            >
-              修改
-            </a>
-          ) : null}
+          <a
+            type="link"
+            disabled={!checkPermission(PermissionsEnum.USERS_WRITE)}
+            onClick={() => {
+              handleUpdateModalVisible(true);
+              setStepFormValues(record);
+            }}
+          >
+            修改
+          </a>
 
-          {checkPermission(PermissionsEnum.USERS_WRITE) ? (
-            <>
-              <Divider type="vertical" />
-              <a
-                onClick={() => {
-                  handleRoleModalVisible(true);
-                  setRoleFormValues(record);
-                }}
-              >
-                分配角色
-              </a>
-            </>
-          ) : null}
+
+          <Divider type="vertical"/>
+          <a
+            type="link"
+            disabled={!checkPermission(PermissionsEnum.USERS_WRITE)}
+            onClick={() => {
+              handleRoleModalVisible(true);
+              setRoleFormValues(record);
+            }}
+          >
+            分配角色
+          </a>
         </>
       ),
     },
   ];
 
   const renderCreateButton = () => {
-    if (checkPermission(PermissionsEnum.USERS_WRITE)) {
-      return (
-        <Button type="primary" onClick={() => handleModalVisible(true)}>
-          <PlusOutlined /> 新建
-        </Button>
-      );
-    }
-    return null;
+    return (
+      <Button disabled={!checkPermission(PermissionsEnum.USERS_WRITE)}
+              type="primary" onClick={() => handleModalVisible(true)}>
+        <PlusOutlined/> 新建
+      </Button>
+    );
+
   };
 
   return (
@@ -197,7 +201,8 @@ const TableList: React.FC<{}> = () => {
               }
             } catch (e) {
               form?.setFields(
-                Object.keys(e.data).map((key) => ({ name: key, errors: [e.data[key]] })),
+                Object.keys(e.data).
+                  map((key) => ({ name: key, errors: [e.data[key]] })),
               );
               // console.log(form)
             }

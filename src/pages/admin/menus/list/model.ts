@@ -4,7 +4,7 @@
 //   name: string;
 //   createDate: Date;
 //   updateDate: Date;
-//   _id: string;
+//   id: string;
 // }
 //
 // export interface MenuType {
