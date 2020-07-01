@@ -23,8 +23,12 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
 
   const { data: menus } = useSWR('/oauth2/selectMenus', request);
   const { data: permissions } = useSWR('/oauth2/permissions', request);
-  const { data, isPending, run } = useAsync(
-    { deferFn: updateMenuAsync, onResolve: () => {handleAdd();} });
+  const { data, isPending, run } = useAsync({
+    deferFn: updateMenuAsync,
+    onResolve: () => {
+      handleAdd();
+    },
+  });
 
   const okHandle = async () => {
     const fieldsValue = (await form.validateFields()) as CreateParams;
@@ -49,7 +53,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
             name={['menu', 'name']}
             rules={[{ required: true, message: '请输入名称！' }]}
           >
-            <Input placeholder="请输入名称！"/>
+            <Input placeholder="请输入名称！" />
           </FormItem>
           <FormItem
             labelCol={{ span: 5 }}
@@ -57,7 +61,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
             label="图标描述"
             name={['menu', 'icon']}
           >
-            <Input placeholder="请输入图标名称！"/>
+            <Input placeholder="请输入图标名称！" />
           </FormItem>
           <FormItem
             labelCol={{ span: 5 }}
@@ -66,7 +70,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
             name={['menu', 'path']}
             rules={[{ required: true, message: '请输入路径！' }]}
           >
-            <Input placeholder="请输入路径！"/>
+            <Input placeholder="请输入路径！" />
           </FormItem>
 
           <FormItem

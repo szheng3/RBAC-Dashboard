@@ -65,17 +65,15 @@ const TableList: React.FC<{}> = () => {
       valueType: 'option',
       render: (_, record) => (
         <>
-
-            <a
-              disabled={!checkPermission(PermissionsEnum.MENU_WRITE)}
-              onClick={() => {
-                handleUpdateModalVisible(true);
-                setStepFormValues(record);
-              }}
-            >
-              修改
-            </a>
-
+          <a
+            disabled={!checkPermission(PermissionsEnum.MENU_WRITE)}
+            onClick={() => {
+              handleUpdateModalVisible(true);
+              setStepFormValues(record);
+            }}
+          >
+            修改
+          </a>
         </>
       ),
     },

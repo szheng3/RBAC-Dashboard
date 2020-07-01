@@ -95,12 +95,6 @@ export default defineConfig({
               component: './development/api-doc',
             },
             {
-              name: '基础详情页',
-              icon: 'smile',
-              path: '/profilebasic',
-              component: './ProfileBasic',
-            },
-            {
               component: './404',
             },
           ],
