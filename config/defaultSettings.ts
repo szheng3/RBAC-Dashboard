@@ -5,7 +5,7 @@ type DefaultSettings = ProSettings & {
 };
 
 const proSettings: DefaultSettings = {
-  navTheme: 'dark',
+  navTheme: 'light',
   // 拂晓蓝
   primaryColor: '#1890ff',
   layout: 'sidemenu',
@@ -16,7 +16,7 @@ const proSettings: DefaultSettings = {
   menu: {
     locale: true,
   },
-  title: 'Ant Design Pro',
+  title: 'Shuai\'s Resume',
   pwa: false,
   iconfontUrl: '',
 };
