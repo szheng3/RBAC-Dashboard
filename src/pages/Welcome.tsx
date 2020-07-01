@@ -23,8 +23,6 @@ export default (): React.ReactNode => (
           marginBottom: 24,
         }}
       />
-
     </Card>
-
   </PageHeaderWrapper>
 );
