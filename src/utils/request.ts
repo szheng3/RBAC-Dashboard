@@ -5,7 +5,7 @@
 import { extend, RequestOptionsInit } from 'umi-request';
 import { notification } from 'antd';
 import { get } from '@/utils/StorageUtil';
-import { getDvaApp,history } from 'umi';
+import { getDvaApp, history } from 'umi';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -46,9 +46,7 @@ const codeMessage = {
 //   }
 //   return response;
 // };
-const errorHandler = (error: {
-  data?: string ;
-  response: Response }): Response | void => {
+const errorHandler = (error: { data?: string; response: Response }): Response | void => {
   const { response } = error;
   const { status, url, statusText } = response;
 
