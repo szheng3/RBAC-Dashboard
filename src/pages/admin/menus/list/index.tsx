@@ -65,8 +65,9 @@ const TableList: React.FC<{}> = () => {
       valueType: 'option',
       render: (_, record) => (
         <>
-          {checkPermission(PermissionsEnum.MENU_WRITE) ? (
+
             <a
+              disabled={!checkPermission(PermissionsEnum.MENU_WRITE)}
               onClick={() => {
                 handleUpdateModalVisible(true);
                 setStepFormValues(record);
@@ -74,7 +75,7 @@ const TableList: React.FC<{}> = () => {
             >
               修改
             </a>
-          ) : null}
+
         </>
       ),
     },
@@ -97,7 +98,7 @@ const TableList: React.FC<{}> = () => {
         actionRef={actionRef}
         rowKey="idMenu"
         toolBarRender={() => [renderCreateButton()]}
-        pagination={{ defaultPageSize: 1 }}
+        pagination={{ defaultPageSize: 3 }}
         search={false}
         {...useExpandedTable(queryMenus, 'idMenu')}
         columns={columns}
